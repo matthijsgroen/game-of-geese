@@ -37,15 +37,3 @@ Kijk dus niet teveel af bij de implementatie van je buurman!
 
 
 
-
-volgorde cukes:
-
-- beurt volgorde
-- pion verzetten
-- ga naar vakje
-- nogmaals dobbelen
-- beurt overslaan
-- bokkesprong
-- de put
-- speelbord
-
