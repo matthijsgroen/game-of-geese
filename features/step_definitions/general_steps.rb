@@ -1,10 +1,22 @@
 Stel(/^ik heb een speelbord met (\d+) vakjes$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+  #pending # express the regexp above with the code you wish you had
 end
 
 Stel(/^ik heb de volgende spelers met de klok mee:$/) do |table|
   # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
+  #| naam  | leeftijd | kleur pion |
+  #| Jan   | 12       | zwart      |
+  table.map_headers!(
+    'naam'       => :name,
+    'leeftijd'   => :age,
+    'kleur pion' => :pawn_color
+  )
+
+  table.hashes.each do |player_attributes|
+    puts player_attributes.inspect
+  end
+
+  #pending # express the regexp above with the code you wish you had
 end
 
 Stel(/^alle pionnen staan op het startvakje$/) do
