@@ -1,0 +1,2 @@
+default: 'features/ --tags ~@wip --tags ~@todo'
+wip: 'features/ --tags @wip --wip'
