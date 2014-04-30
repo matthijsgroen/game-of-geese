@@ -1,2 +1,2 @@
-default: 'features/ --tags ~@wip --tags ~@todo'
-wip: 'features/ --tags @wip --wip'
+default: 'features/ --tags ~@wip --tags ~@todo --strict --format pretty'
+wip: 'features/ --tags @wip --wip --format pretty'
