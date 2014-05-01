@@ -1,4 +1,6 @@
 Stel(/^ik heb een speelbord met (?:\d+) vakjes$/) do
+  # No assertion yet that requires the amount
+  # of spaces
   @game = Game.new
 end
 
@@ -19,14 +21,6 @@ Stel(/^ik heb de volgende spelers met de klok mee:$/) do |table|
 
   table.hashes.each do |player_attributes|
     add_player(@game, player_attributes)
-  end
-end
-
-# The role of a person playing game of goose
-module Player
-  attr_accessor :pawn
-  def turn?
-    true
   end
 end
 
