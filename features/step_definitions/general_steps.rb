@@ -22,16 +22,6 @@ Stel(/^ik heb de volgende spelers met de klok mee:$/) do |table|
   end
 end
 
-# Person that will play our game
-class Person
-  attr_reader :name, :age
-
-  def initialize(attributes)
-    @name = attributes[:name]
-    @age = attributes[:age]
-  end
-end
-
 # A physical pawn on the playing field
 class Pawn
   def initialize(_attributes)
