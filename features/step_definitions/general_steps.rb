@@ -43,9 +43,11 @@ end
 
 # Person that will play our game
 class Person
-  attr_reader :name
+  attr_reader :name, :age
+
   def initialize(attributes)
     @name = attributes[:name]
+    @age = attributes[:age]
   end
 end
 
@@ -68,6 +70,15 @@ class Game
     player.pawn = pawn
     @players.push player
   end
+
+  # method name suggestion from:
+  # http://english.stackexchange.com/questions/117734
+  def active_player
+    # the youngest player may start
+    @players.sort do |a, b|
+      a.age <=> b.age
+    end.first
+  end
 end
 
 # The role of a person playing game of goose
@@ -82,7 +93,7 @@ Stel(/^alle pionnen staan op het startvakje$/) do
 end
 
 Dan(/^is Piet aan de beurt om te dobbelen omdat hij de jongste speler is$/) do
-  expect(@game.players.select(&:turn?).map(&:name)).to eql ['Piet']
+  expect(@game.active_player.name).to eql 'Piet'
 end
 
 Als(/^de beurt van Piet is geweest$/) do
