@@ -31,16 +31,6 @@ def map_dutch_color_to_symbol(dutch_color)
   }[dutch_color]
 end
 
-def add_player(game, attributes)
-  person_attributes = attributes.select { |k| [:name, :age].include? k }
-  pawn_attributes = attributes.select { |k| [:color].include? k }
-
-  person = Person.new person_attributes
-  pawn = Pawn.new(pawn_attributes)
-
-  game.join(person, pawn)
-end
-
 # Person that will play our game
 class Person
   attr_reader :name, :age
