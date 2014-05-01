@@ -90,6 +90,7 @@ module Player
 end
 
 Stel(/^alle pionnen staan op het startvakje$/) do
+  # No assertion at the moment that requires implementation here
 end
 
 Dan(/^is Piet aan de beurt om te dobbelen omdat hij de jongste speler is$/) do
