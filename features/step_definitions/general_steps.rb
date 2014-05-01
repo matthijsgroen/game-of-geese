@@ -22,12 +22,6 @@ Stel(/^ik heb de volgende spelers met de klok mee:$/) do |table|
   end
 end
 
-# A physical pawn on the playing field
-class Pawn
-  def initialize(_attributes)
-  end
-end
-
 # Our 'concept' of the game, maintaining the rules of the game
 class Game
   attr_reader :players

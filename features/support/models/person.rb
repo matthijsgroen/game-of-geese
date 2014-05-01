@@ -7,4 +7,3 @@ class Person
     @age = attributes[:age]
   end
 end
-
