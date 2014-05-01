@@ -43,7 +43,9 @@ end
 
 # Person that will play our game
 class Person
-  def initialize(_attributes)
+  attr_reader :name
+  def initialize(attributes)
+    @name = attributes[:name]
   end
 end
 
@@ -55,6 +57,8 @@ end
 
 # Our 'concept' of the game, maintaining the rules of the game
 class Game
+  attr_reader :players
+
   def initialize
     @players = []
   end
@@ -69,14 +73,16 @@ end
 # The role of a person playing game of goose
 module Player
   attr_accessor :pawn
+  def turn?
+    true
+  end
 end
 
 Stel(/^alle pionnen staan op het startvakje$/) do
-  pending # express the regexp above with the code you wish you had
 end
 
 Dan(/^is Piet aan de beurt om te dobbelen omdat hij de jongste speler is$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(@game.players.select(&:turn?).map(&:name)).to eql ['Piet']
 end
 
 Als(/^de beurt van Piet is geweest$/) do
