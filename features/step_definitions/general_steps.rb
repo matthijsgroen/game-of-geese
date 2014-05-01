@@ -22,15 +22,6 @@ Stel(/^ik heb de volgende spelers met de klok mee:$/) do |table|
   end
 end
 
-def map_dutch_color_to_symbol(dutch_color)
-  # remap colors to english symbols
-  {
-    'zwart' => :black,
-    'blauw' => :blue,
-    'paars' => :purple
-  }[dutch_color]
-end
-
 # Person that will play our game
 class Person
   attr_reader :name, :age
