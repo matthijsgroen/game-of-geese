@@ -11,12 +11,11 @@ Functionaliteit: Beurt volgorde
     En alle pionnen staan op het startvakje
 
 
-  @wip
   Scenario: Een speler die mag starten kiezen
     Dan is Piet aan de beurt om te dobbelen omdat hij de jongste speler is
 
 
-  @todo
+  @wip
   Scenario: Beurtvolgorde met de klok mee
     Als de beurt van Piet is geweest
     Dan is Klaas aan de beurt om te dobbelen
