@@ -1,12 +1,4 @@
-require 'pathname'
+load File.expand_path('../tasks/build.rake', __FILE__)
 
-task default: [:haml]
+task default: [:build]
 
-task :haml do
-  p = Pathname.new 'dist'
-  p.mkpath
-
-  require 'haml'
-  require 'haml/exec'
-  Haml::Exec::Haml.new(['app/index.haml', 'dist/index.html']).parse!
-end
