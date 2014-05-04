@@ -33,7 +33,7 @@ Dan(/^is Piet aan de beurt om te dobbelen omdat hij de jongste speler is$/) do
 end
 
 Als(/^de beurt van Piet is geweest$/) do
-  # No assertion at the moment that requires implementation here
+  @game.play_turn
 end
 
 Dan(/^is Klaas aan de beurt om te dobbelen$/) do
@@ -41,7 +41,7 @@ Dan(/^is Klaas aan de beurt om te dobbelen$/) do
 end
 
 Als(/^de beurt van Klaas is geweest$/) do
-  # No assertion at the moment that requires implementation here
+  @game.play_turn
 end
 
 Dan(/^is Jan aan de beurt om te dobbelen$/) do

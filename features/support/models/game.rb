@@ -4,6 +4,7 @@ class Game
 
   def initialize
     @players = []
+    @players.extend PlayerCircle
   end
 
   def join(person, pawn)
@@ -15,9 +16,10 @@ class Game
   # method name suggestion from:
   # http://english.stackexchange.com/questions/117734
   def active_player
-    # the youngest player may start
-    @players.sort do |a, b|
-      a.age <=> b.age
-    end.first
+    @active_player ||= players.start
+  end
+
+  def play_turn
+    @active_player = @players.next_after active_player
   end
 end
