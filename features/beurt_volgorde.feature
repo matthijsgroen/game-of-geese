@@ -15,7 +15,6 @@ Functionaliteit: Beurt volgorde
     Dan is Piet aan de beurt om te dobbelen omdat hij de jongste speler is
 
 
-  @wip
   Scenario: Beurtvolgorde met de klok mee
     Als de beurt van Piet is geweest
     Dan is Klaas aan de beurt om te dobbelen

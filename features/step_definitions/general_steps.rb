@@ -28,22 +28,10 @@ Stel(/^alle pionnen staan op het startvakje$/) do
   # No assertion at the moment that requires implementation here
 end
 
-Dan(/^is Piet aan de beurt om te dobbelen omdat hij de jongste speler is$/) do
-  expect(@game.active_player.name).to eql 'Piet'
-end
-
-Als(/^de beurt van Piet is geweest$/) do
+Als(/^de beurt van (?:\w+) is geweest$/) do
   @game.play_turn
 end
 
-Dan(/^is Klaas aan de beurt om te dobbelen$/) do
-  expect(@game.active_player.name).to eql 'Klaas'
-end
-
-Als(/^de beurt van Klaas is geweest$/) do
-  @game.play_turn
-end
-
-Dan(/^is Jan aan de beurt om te dobbelen$/) do
-  expect(@game.active_player.name).to eql 'Jan'
+Dan(/^is (\w+) aan de beurt om te dobbelen/) do |name|
+  expect(@game.active_player.name).to eql name
 end
