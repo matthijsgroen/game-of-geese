@@ -15,6 +15,16 @@ module WebHelpers
   class ModelProxy
     class << self
       attr_accessor :session
+
+      def js_attr_reader(*attributes)
+        attributes.each do |attr|
+          define_method attr do
+            run_coffee <<-SCRIPT
+              return #{assignment}.#{attr}
+            SCRIPT
+          end
+        end
+      end
     end
 
     def run_coffee(*arg)
