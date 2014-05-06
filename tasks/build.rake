@@ -5,8 +5,18 @@ task :build_haml do
   p = Pathname.new 'dist'
   p.mkpath
 
-  require 'haml'
-  require 'haml/exec'
-  Haml::Exec::Haml.new(['app/index.haml', 'dist/index.html']).parse
-end
+  require 'sprockets'
+  require 'tilt'
 
+  environment = Sprockets::Environment.new
+  environment.append_path 'app'
+
+  asset = environment.find_asset('application')
+  asset.write_to 'dist/application.js'
+
+
+  index = Tilt.new('app/index.html.haml')
+  File.open('dist/index.html', 'w') do |f|
+    f.write index.render
+  end
+end

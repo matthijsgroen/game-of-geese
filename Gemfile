@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
+gem 'sprockets'
 gem 'haml'
+gem 'coffee-script'
+
 gem 'rake'
 
 gem 'cucumber'
