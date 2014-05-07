@@ -4,5 +4,5 @@ Before do
   Rake::Task['build'].invoke
 
   visit 'dist/index.html'
-  WebHelpers::ModelProxy.session = self
+  ModelProxy.session = self
 end

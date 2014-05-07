@@ -14,7 +14,6 @@ task :build_haml do
   asset = environment.find_asset('application')
   asset.write_to 'dist/application.js'
 
-
   index = Tilt.new('app/index.html.haml')
   File.open('dist/index.html', 'w') do |f|
     f.write index.render
