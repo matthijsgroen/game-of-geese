@@ -21,9 +21,7 @@ class ModelProxy
 
   def initialize(attributes)
     script = "#{assignment} = new #{self.class.name}(\n"
-    attributes.each do |key, value|
-      script += "  #{key}: #{value.inspect}\n"
-    end
+    script += coffee_script_hash(attributes, indent: 2)
     script += ")\n"
 
     run_coffee script
@@ -39,11 +37,18 @@ class ModelProxy
 
   private
 
+  def coffee_script_hash(hash, indent:)
+    hash.map do |key, value|
+      value = value.to_s if value.is_a? Symbol
+      (' ' * indent) + "#{key}: #{value.inspect}"
+    end.join("\n") + "\n"
+  end
+
   def create_js_object_id
     count = run_coffee <<-SCRIPT
-        @objectSpace ||= {}
-        @objectIdCounter ||= 0
-        return @objectIdCounter += 1
+      @objectSpace ||= {}
+      @objectIdCounter ||= 0
+      return @objectIdCounter += 1
     SCRIPT
     "object#{count}"
   end
