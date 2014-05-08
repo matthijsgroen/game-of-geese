@@ -3,6 +3,7 @@ task build: [:build_haml]
 task :build_haml do
   require 'pathname'
   p = Pathname.new 'dist'
+  p.rmtree if p.exist?
   p.mkpath
 
   require 'sprockets'
