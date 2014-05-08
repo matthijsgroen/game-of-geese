@@ -7,9 +7,7 @@ class ModelProxy
     def js_attr_reader(*attributes)
       attributes.each do |attr|
         define_method attr do
-          run_coffee <<-SCRIPT
-              return #{assignment}.#{attr}
-          SCRIPT
+          run_coffee "return #{assignment}.#{attr}"
         end
       end
     end
@@ -19,7 +17,7 @@ class ModelProxy
     ModelProxy.session.run_coffee(*arg)
   end
 
-  def initialize(attributes)
+  def initialize(attributes = {})
     script = "#{assignment} = new #{self.class.name}(\n"
     script += coffee_script_hash(attributes, indent: 2)
     script += ")\n"
@@ -33,6 +31,16 @@ class ModelProxy
 
   def js_object_id
     @js_object_id ||= create_js_object_id
+  end
+
+  def method_missing(method_name, *args)
+    self.class.send(:define_method,  method_name) do |*_method_args|
+      run_coffee <<-SCRIPT
+        return #{assignment}.#{method_name}()
+      SCRIPT
+    end
+
+    send(method_name, *args)
   end
 
   private
