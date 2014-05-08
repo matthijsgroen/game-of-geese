@@ -1,1 +1,1 @@
-class @Pawn
+class GameOfTheGoose.Pawn

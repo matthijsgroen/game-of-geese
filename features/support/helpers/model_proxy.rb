@@ -2,7 +2,7 @@
 # and is used to proxy data
 class ModelProxy
   class << self
-    attr_accessor :session
+    attr_accessor :session, :object_space
 
     def js_attr_reader(*attributes)
       attributes.each do |attr|
@@ -23,7 +23,9 @@ class ModelProxy
   def initialize(attributes = {})
     define_object_assignment(attributes)
 
-    script = "#{javascript_assignment} = new #{self.class.name}(\n"
+    javascript_class_name = "#{ModelProxy.object_space}.#{self.class.name}"
+
+    script = "#{javascript_assignment} = new #{javascript_class_name}(\n"
     script += coffee_script_hash(attributes, indent: 2)
     script += ")\n"
 
@@ -67,7 +69,7 @@ class ModelProxy
     attribute = self.class.assignment
     object_name += object_name_suffix(attributes[attribute]) if attribute
 
-    @javascript_assignment = "@objectSpace['#{object_name}']"
+    @javascript_assignment = "#{object_space}['#{object_name}']"
   end
 
   def object_name_suffix(attribute)
@@ -75,9 +77,10 @@ class ModelProxy
   end
 
   def prepare_object_space
-    run_coffee <<-SCRIPT
-      @objectSpace ||= {}
-      @objectIdCounter ||= 0
-    SCRIPT
+    run_coffee "#{object_space} ||= {}"
+  end
+
+  def object_space
+    "#{ModelProxy.object_space}.objects"
   end
 end
