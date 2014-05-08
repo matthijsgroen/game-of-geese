@@ -31,9 +31,10 @@ class ModelProxy
   end
 
   def method_missing(method_name, *args)
-    self.class.send(:define_method,  method_name) do |*_method_args|
+    self.class.send(:define_method,  method_name) do |*method_args|
+      args = coffee_script_args(method_args)
       run_coffee <<-SCRIPT
-        return #{javascript_assignment}.#{method_name}()
+        return #{javascript_assignment}.#{method_name}(#{args})
       SCRIPT
     end
 
@@ -52,6 +53,12 @@ class ModelProxy
       value = value.to_s if value.is_a? Symbol
       (' ' * indent) + "#{key}: #{value.inspect}"
     end.join("\n") + "\n"
+  end
+
+  def coffee_script_args(arguments)
+    arguments.map do |arg|
+      arg.javascript_assignment if arg.respond_to? :javascript_assignment
+    end.join ', '
   end
 
   def define_object_assignment(attributes)
