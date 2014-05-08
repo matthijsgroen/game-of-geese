@@ -1,4 +1,4 @@
 class @Game
 
-  join: (person, pawn) ->
+  #join: (person, pawn) ->
     # console.log "Person joining the game:", person.name
