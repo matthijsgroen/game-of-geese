@@ -23,8 +23,6 @@ class ModelProxy
   def initialize(attributes = {})
     define_object_assignment(attributes)
 
-    javascript_class_name = "#{ModelProxy.object_space}.#{self.class.name}"
-
     script = "#{javascript_assignment} = new #{javascript_class_name}(\n"
     script += coffee_script_hash(attributes, indent: 2)
     script += ")\n"
@@ -57,6 +55,8 @@ class ModelProxy
     end.join("\n") + "\n"
   end
 
+  # Convert ruby method arguments to coffee-script
+  # arguments
   def coffee_script_args(arguments)
     arguments.map do |arg|
       arg.javascript_assignment if arg.respond_to? :javascript_assignment
@@ -69,7 +69,7 @@ class ModelProxy
     attribute = self.class.assignment
     object_name += object_name_suffix(attributes[attribute]) if attribute
 
-    @javascript_assignment = "#{object_space}['#{object_name}']"
+    @javascript_assignment = "#{object_space}.#{object_name}"
   end
 
   def object_name_suffix(attribute)
@@ -82,5 +82,9 @@ class ModelProxy
 
   def object_space
     "#{ModelProxy.object_space}.objects"
+  end
+
+  def javascript_class_name
+    "#{ModelProxy.object_space}.#{self.class.name}"
   end
 end
