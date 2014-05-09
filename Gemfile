@@ -9,6 +9,7 @@ gem 'rake'
 
 gem 'cucumber'
 gem 'rspec'
+gem 'jasmine'
 gem 'rubocop'
 
 gem 'capybara'
@@ -17,4 +18,4 @@ gem 'capybara-webkit'
 gem 'guard'
 gem 'guard-cucumber'
 gem 'guard-rubocop'
-
+gem 'guard-jasmine'

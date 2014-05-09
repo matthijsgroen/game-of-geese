@@ -69,7 +69,7 @@ class ModelProxy
     attribute = self.class.assignment
     object_name += object_name_suffix(attributes[attribute]) if attribute
 
-    @javascript_assignment = "#{object_space}.#{object_name}"
+    @javascript_assignment = "#{object_space}['#{object_name}']"
   end
 
   def object_name_suffix(attribute)
