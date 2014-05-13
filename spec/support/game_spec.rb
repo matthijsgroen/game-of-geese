@@ -1,10 +1,11 @@
 require 'spec_helper'
 require 'support/roles/player'
-require 'support/roles/pawn'
+require 'support/roles/board_pawn'
 
 describe Game do
+  let(:game) { Game.new }
+
   describe '#join' do
-    let(:game) { Game.new }
     let(:person) { double('person') }
     let(:pawn) { double('pawn') }
 
@@ -31,7 +32,42 @@ describe Game do
         game.pawns.first
       end
 
-      it_should_behave_like 'a pawn'
+      it_should_behave_like 'a board pawn'
+    end
+  end
+
+  describe '#active_player' do
+    subject { game.active_player }
+
+    context 'with nobody playing' do
+      it 'is nobody' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'with one player' do
+      let(:person) { double('person') }
+      before do
+        game.join(person, double('pawn'))
+      end
+
+      it 'the only player joined' do
+        expect(subject).to eql person
+      end
+    end
+
+    context 'with multiple players' do
+      let(:older_person) { double('older person', age: 15) }
+      let(:young_person) { double('young person', age: 9) }
+
+      before do
+        game.join(older_person, double('pawn'))
+        game.join(young_person, double('pawn'))
+      end
+
+      it 'is the youngest player' do
+        expect(subject).to eql young_person
+      end
     end
   end
 end
