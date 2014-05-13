@@ -25,6 +25,7 @@ Functionaliteit: Pion verzetten
       | 6 | 2 | 8 |
 
 
+  @todo
   Scenario: Meerdere spelers op hetzelfde vak
     Als Piet 4 dobbelt
     Dan staat de paarse pion op het 4de vakje
@@ -35,12 +36,14 @@ Functionaliteit: Pion verzetten
       | blauw | 4     |
 
 
+  @todo
   Scenario: Spel winnen
     Stel Piet gooit altijd 6 met de dobbelsteen
     Als er 11 speelrondes zijn gespeeld
     Dan heeft Piet het spel gewonnen
 
 
+  @todo
   Abstract Scenario: Ganzen vakjes
     Stel het <x>de vakje is een ganzenvakje
     Als Piet <x> dobbelt
