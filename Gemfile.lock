@@ -17,8 +17,6 @@ GEM
     celluloid-io (0.15.0)
       celluloid (>= 0.15.0)
       nio4r (>= 0.5.0)
-    childprocess (0.5.3)
-      ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.0)
     coffee-script (2.2.0)
       coffee-script-source
@@ -45,12 +43,9 @@ GEM
     guard-cucumber (1.4.1)
       cucumber (>= 1.2.0)
       guard (>= 1.1.0)
-    guard-jasmine (1.19.2)
-      childprocess
-      guard (>= 2.0.0)
-      multi_json
-      thor
-      tilt
+    guard-rake (0.0.9)
+      guard
+      rake
     guard-rubocop (1.1.0)
       guard (~> 2.0)
       rubocop (~> 0.20)
@@ -132,7 +127,7 @@ DEPENDENCIES
   cucumber
   guard
   guard-cucumber
-  guard-jasmine
+  guard-rake
   guard-rubocop
   haml
   jasmine
