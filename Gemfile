@@ -7,4 +7,5 @@ gem 'rubocop'
 gem 'guard'
 gem 'guard-cucumber'
 gem 'guard-rubocop'
+gem 'guard-rspec'
 
