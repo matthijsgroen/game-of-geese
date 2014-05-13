@@ -35,3 +35,39 @@ end
 Dan(/^is (\w+) aan de beurt om te dobbelen/) do |name|
   expect(@game.active_player.name).to eql name
 end
+
+Als(/^Piet (\d+) dobbelt$/) do |arg1|
+end
+
+Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, space_no|
+  pawn_color = map_dutch_color_to_symbol(dutch_color)
+
+  pawn = @game.pawns.find { |p| p.color == pawn_color }
+  expect(pawn.location).to eql space_no
+end
+
+Als(/^Klaas (\d+) dobbelt$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Dan(/^is de bord opstelling als volgt:$/) do |table|
+  # table is a Cucumber::Ast::Table
+  pending # express the regexp above with the code you wish you had
+end
+
+Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Als(/^er (\d+) speelrondes zijn gespeeld$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Dan(/^heeft Piet het spel gewonnen$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+

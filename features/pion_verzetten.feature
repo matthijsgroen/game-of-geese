@@ -10,6 +10,7 @@ Functionaliteit: Pion verzetten
     En alle pionnen staan op het startvakje
 
 
+  @wip
   Abstract Scenario: Vakjes lopen
     Als Piet <x> dobbelt
     Dan staat de paarse pion op het <x>de vakje
