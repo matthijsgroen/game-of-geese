@@ -1,3 +1,7 @@
+Transform(/\d+/) do |number|
+  number.to_i
+end
+
 Stel(/^ik heb een speelbord met (?:\d+) vakjes$/) do
   # No assertion yet that requires the amount
   # of spaces
@@ -39,11 +43,11 @@ end
 Als(/^Piet (\d+) dobbelt$/) do |arg1|
 end
 
-Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, space_no|
+Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, location|
   pawn_color = map_dutch_color_to_symbol(dutch_color)
 
   pawn = @game.pawns.find { |p| p.color == pawn_color }
-  expect(pawn.location).to eql space_no
+  expect(pawn.location).to eql location
 end
 
 Als(/^Klaas (\d+) dobbelt$/) do |arg1|

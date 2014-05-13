@@ -8,9 +8,16 @@ class Game
   end
 
   def join(person, pawn)
+    pawn.extend BoardPawn
+    pawn.location = 0
+
     player = person.extend Player
     player.pawn = pawn
     @players.push player
+  end
+
+  def pawns
+    players.map(&:pawn)
   end
 
   # method name suggestion from:

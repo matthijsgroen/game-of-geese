@@ -1,5 +1,8 @@
 # A physical pawn on the playing field
 class Pawn
-  def initialize(_attributes)
+  attr_reader :color
+
+  def initialize(attributes)
+    @color = attributes[:color]
   end
 end
