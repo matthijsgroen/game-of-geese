@@ -36,11 +36,14 @@ Als(/^de beurt van (?:\w+) is geweest$/) do
   @game.play_turn
 end
 
-Dan(/^is (\w+) aan de beurt om te dobbelen/) do |name|
-  expect(@game.active_player.name).to eql name
+Dan(/^is (\w+) aan de beurt om te dobbelen/) do |person_name|
+  expect(@game.active_player.name).to eql person_name
 end
 
-Als(/^Piet (\d+) dobbelt$/) do |arg1|
+Als(/^(\w+) (\d+) dobbelt$/) do |person_name, dice_value|
+  expect(@game.active_player.name).to eql person_name
+
+  @game.active_player.roll_dice(FixedDice.new(dice_value))
 end
 
 Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, location|
@@ -50,20 +53,16 @@ Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, location|
   expect(pawn.location).to eql location
 end
 
-Als(/^Klaas (\d+) dobbelt$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
-Dan(/^is de bord opstelling als volgt:$/) do |table|
+Dan(/^is de bord opstelling als volgt:$/) do |_table|
   # table is a Cucumber::Ast::Table
   pending # express the regexp above with the code you wish you had
 end
 
-Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |arg1|
+Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |_arg1|
   pending # express the regexp above with the code you wish you had
 end
 
-Als(/^er (\d+) speelrondes zijn gespeeld$/) do |arg1|
+Als(/^er (\d+) speelrondes zijn gespeeld$/) do |_arg1|
   pending # express the regexp above with the code you wish you had
 end
 
@@ -71,7 +70,6 @@ Dan(/^heeft Piet het spel gewonnen$/) do
   pending # express the regexp above with the code you wish you had
 end
 
-Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |arg1|
+Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |_arg1|
   pending # express the regexp above with the code you wish you had
 end
-

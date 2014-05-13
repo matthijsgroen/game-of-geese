@@ -7,12 +7,13 @@ class Game
     @players.extend PlayerCircle
   end
 
-  def join(person, pawn)
-    pawn.extend BoardPawn
-    pawn.location = 0
+  def join(person, _pawn)
+    # TODO: This is behaviour, we want specs for this!
+    # pawn.extend BoardPawn
+    # pawn.location = 0
 
-    player = person.extend Player
-    player.pawn = pawn
+    player = person # .extend Player
+    # player.pawn = pawn
     @players.push player
   end
 
