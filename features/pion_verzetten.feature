@@ -34,7 +34,7 @@ Functionaliteit: Pion verzetten
       | blauw | 4     |
 
 
-  @todo
+  @wip
   Scenario: Spel winnen
     Stel Piet gooit altijd 6 met de dobbelsteen
     Als er 11 speelrondes zijn gespeeld

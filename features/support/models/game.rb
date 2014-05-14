@@ -1,6 +1,7 @@
 # Our 'concept' of the game, maintaining the rules of the game
 class Game
   attr_reader :players
+  attr_accessor :die
 
   def initialize
     @players = []

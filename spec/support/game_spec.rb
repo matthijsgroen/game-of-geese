@@ -70,4 +70,30 @@ describe Game do
       end
     end
   end
+
+  describe 'die attribute' do
+    let(:die) { double('die') }
+    it 'can have a die' do
+      game.die = die
+      expect(game.die).to eql die
+    end
+  end
+
+  describe '#play_round' do
+    let(:older_person)  { double('older person',  age: 15) }
+    let(:young_person)  { double('young person',  age: 9)  }
+    let(:middle_person) { double('middle person', age: 11) }
+    let(:die) { double('die') }
+
+    before do
+      game.join(older_person,  double('pawn'))
+      game.join(young_person,  double('pawn'))
+      game.join(middle_person, double('pawn'))
+      game.die = die
+    end
+
+    it 'lets each player play a turn offering a die' do
+
+    end
+  end
 end

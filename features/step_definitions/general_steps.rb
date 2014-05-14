@@ -41,10 +41,10 @@ Dan(/^is (\w+) aan de beurt om te dobbelen/) do |person_name|
   expect(@game.active_player.name).to eql person_name
 end
 
-Als(/^(\w+) (\d+) dobbelt$/) do |player_name, dice_value|
+Als(/^(\w+) (\d+) dobbelt$/) do |player_name, die_value|
   @game.next_turn until @game.active_player.name == player_name
 
-  @game.active_player.move_pawn_using_dice(FixedDice.new(dice_value))
+  @game.active_player.move_pawn_using_die(FixedDie.new(die_value))
 end
 
 Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, location|
@@ -78,12 +78,12 @@ Dan(/^is de bord opstelling als volgt:$/) do |table|
   expect(actual_pawn_setup).to eql expected_pawn_setup
 end
 
-Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |_arg1|
-  pending # express the regexp above with the code you wish you had
+Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |die_value|
+  @game.die = FixedDie.new(die_value)
 end
 
 Als(/^er (\d+) speelrondes zijn gespeeld$/) do |_arg1|
-  pending # express the regexp above with the code you wish you had
+  11.times { @game.play_round }
 end
 
 Dan(/^heeft Piet het spel gewonnen$/) do

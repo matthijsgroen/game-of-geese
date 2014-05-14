@@ -4,17 +4,17 @@ shared_examples_for 'a player' do
     expect(player.pawn).to eql pawn
   end
 
-  describe '#move_pawn_using_dice' do
+  describe '#move_pawn_using_die' do
     let(:pawn) { double('pawn').extend(BoardPawn) }
-    let(:dice) { FixedDice.new(6) }
+    let(:die) { FixedDie.new(6) }
 
     before do
       player.pawn = pawn
       pawn.location = 4
     end
 
-    it 'moves the pawn forward using the outcome of the dice' do
-      player.move_pawn_using_dice(dice)
+    it 'moves the pawn forward using the outcome of the die' do
+      player.move_pawn_using_die(die)
 
       expect(player.pawn.location).to eql 10
     end

@@ -3,9 +3,9 @@ module Player
   attr_accessor :pawn
   attr_accessor :game
 
-  def move_pawn_using_dice(dice)
-    dice.roll
-    pawn.location += dice.value
+  def move_pawn_using_die(die)
+    die.roll
+    pawn.location += die.value
   end
 
   def finish_turn

@@ -1,5 +1,5 @@
-# A fixed dice that always returns a pre-defined value
-class FixedDice
+# A fixed die that always returns a pre-defined value
+class FixedDie
   attr_reader :value
 
   def initialize(fixed_value)
