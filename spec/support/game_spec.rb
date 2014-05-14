@@ -5,6 +5,10 @@ require 'support/roles/board_pawn'
 describe Game do
   let(:game) { Game.new }
 
+  before do
+    game.board = double('board', spaces: 50)
+  end
+
   describe '#join' do
     let(:person) { double('person') }
     let(:pawn) { double('pawn') }
@@ -80,20 +84,61 @@ describe Game do
   end
 
   describe '#play_round' do
-    let(:older_person)  { double('older person',  age: 15) }
+    subject { game.play_round }
+
     let(:young_person)  { double('young person',  age: 9)  }
     let(:middle_person) { double('middle person', age: 11) }
+    let(:older_person)  { double('older person',  age: 15) }
     let(:die) { double('die') }
 
     before do
-      game.join(older_person,  double('pawn'))
-      game.join(young_person,  double('pawn'))
       game.join(middle_person, double('pawn'))
+      game.join(young_person,  double('pawn'))
+      game.join(older_person,  double('pawn'))
       game.die = die
     end
 
     it 'lets each player play a turn offering a die' do
+      expect(young_person).to receive(:play_turn).with(die).ordered do
+        young_person.finish_turn
+      end
+      expect(older_person).to receive(:play_turn).with(die).ordered do
+        older_person.finish_turn
+      end
+      expect(middle_person).to receive(:play_turn).with(die).ordered do
+        middle_person.finish_turn
+      end
 
+      subject
+    end
+  end
+
+  describe '#winner' do
+    it 'is undetermined by default' do
+      expect(game.winner).to be_nil
+    end
+
+    describe 'assignment' do
+      let(:young_person) { double('young person', age: 7) }
+      let(:older_person) { double('older person', age: 8) }
+      let(:pawn1) { double('pawn') }
+      let(:pawn2) { double('pawn') }
+
+      before do
+        game.board = Board.new(40)
+        game.die = double('die', roll: nil, value: 5)
+        game.join(young_person, pawn1)
+        pawn1.location = game.board.spaces - 1
+
+        game.join(older_person, pawn2)
+        pawn2.location = game.board.spaces - 1
+      end
+
+      it 'is done when a player reaches the end of the board' do
+        expect do
+          game.play_round
+        end.to change { game.winner }.from(nil).to(young_person)
+      end
     end
   end
 end

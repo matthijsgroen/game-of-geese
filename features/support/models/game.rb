@@ -1,7 +1,8 @@
 # Our 'concept' of the game, maintaining the rules of the game
 class Game
   attr_reader :players
-  attr_accessor :die
+  attr_accessor :die, :board
+  attr_reader :winner
 
   def initialize
     @players = []
@@ -29,6 +30,19 @@ class Game
   end
 
   def next_turn
+    @winner = active_player if active_player.pawn.location >= board.spaces
     @active_player = @players.next_after active_player
+  end
+
+  def play_round
+    return if winner
+    current_player = active_player
+
+    round_finished = false
+    until round_finished
+      active_player.play_turn(die)
+
+      round_finished = (active_player == current_player) || winner
+    end
   end
 end

@@ -2,10 +2,9 @@ Transform(/\d+/) do |number|
   number.to_i
 end
 
-Stel(/^ik heb een speelbord met (?:\d+) vakjes$/) do
-  # No assertion yet that requires the amount
-  # of spaces
+Stel(/^ik heb een speelbord met (\d+) vakjes$/) do |space_count|
   @game = Game.new
+  @game.board = Board.new(space_count)
 end
 
 Stel(/^ik heb de volgende spelers met de klok mee:$/) do |table|
@@ -82,12 +81,12 @@ Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |die_value|
   @game.die = FixedDie.new(die_value)
 end
 
-Als(/^er (\d+) speelrondes zijn gespeeld$/) do |_arg1|
-  11.times { @game.play_round }
+Als(/^er (\d+) speelrondes zijn gespeeld$/) do |round_count|
+  round_count.times { @game.play_round }
 end
 
-Dan(/^heeft Piet het spel gewonnen$/) do
-  pending # express the regexp above with the code you wish you had
+Dan(/^heeft (\w+) het spel gewonnen$/) do |player_name|
+  expect(@game.winner.name).to eql player_name
 end
 
 Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |_arg1|

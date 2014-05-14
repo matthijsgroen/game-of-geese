@@ -26,4 +26,20 @@ shared_examples_for 'a player' do
       player.finish_turn
     end
   end
+
+  describe '#play_turn' do
+    let(:die) { double('die', roll: nil, value: 2) }
+
+    subject { player.play_turn(die) }
+
+    it 'rolls the die and moves the pawn' do
+      expect(player).to receive(:move_pawn_using_die).with(die)
+      subject
+    end
+
+    it 'ends the turn' do
+      expect(player).to receive(:finish_turn)
+      subject
+    end
+  end
 end
