@@ -10,4 +10,5 @@ describe Board do
       expect(board.spaces).to eql spaces
     end
   end
+
 end

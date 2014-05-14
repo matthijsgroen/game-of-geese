@@ -89,6 +89,6 @@ Dan(/^heeft (\w+) het spel gewonnen$/) do |player_name|
   expect(@game.winner.name).to eql player_name
 end
 
-Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |_arg1|
-  pending # express the regexp above with the code you wish you had
+Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |space|
+  pending('figure out how to set space ruling')
 end

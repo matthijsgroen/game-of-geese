@@ -34,14 +34,13 @@ Functionaliteit: Pion verzetten
       | blauw | 4     |
 
 
-  @wip
   Scenario: Spel winnen
     Stel Piet gooit altijd 6 met de dobbelsteen
     Als er 11 speelrondes zijn gespeeld
     Dan heeft Piet het spel gewonnen
 
 
-  @todo
+  @wip
   Abstract Scenario: Ganzen vakjes
     Stel het <x>de vakje is een ganzenvakje
     Als Piet <x> dobbelt
