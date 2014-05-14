@@ -13,6 +13,7 @@ class Game
 
     player = person.extend Player
     player.pawn = pawn
+    player.game = self
     @players.push player
   end
 
@@ -26,7 +27,7 @@ class Game
     @active_player ||= players.start
   end
 
-  def play_turn
+  def next_turn
     @active_player = @players.next_after active_player
   end
 end

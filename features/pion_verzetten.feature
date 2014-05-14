@@ -10,7 +10,6 @@ Functionaliteit: Pion verzetten
     En alle pionnen staan op het startvakje
 
 
-  @wip
   Abstract Scenario: Vakjes lopen
     Als Piet <x> dobbelt
     Dan staat de paarse pion op het <x>de vakje
@@ -25,7 +24,6 @@ Functionaliteit: Pion verzetten
       | 6 | 2 | 8 |
 
 
-  @todo
   Scenario: Meerdere spelers op hetzelfde vak
     Als Piet 4 dobbelt
     Dan staat de paarse pion op het 4de vakje

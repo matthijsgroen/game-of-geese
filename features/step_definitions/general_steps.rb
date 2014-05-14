@@ -32,16 +32,17 @@ Stel(/^alle pionnen staan op het startvakje$/) do
   # No assertion at the moment that requires implementation here
 end
 
-Als(/^de beurt van (?:\w+) is geweest$/) do
-  @game.play_turn
+Als(/^de beurt van (\w+) is geweest$/) do |player_name|
+  @game.next_turn until @game.active_player.name == player_name
+  @game.next_turn
 end
 
 Dan(/^is (\w+) aan de beurt om te dobbelen/) do |person_name|
   expect(@game.active_player.name).to eql person_name
 end
 
-Als(/^(\w+) (\d+) dobbelt$/) do |person_name, dice_value|
-  expect(@game.active_player.name).to eql person_name
+Als(/^(\w+) (\d+) dobbelt$/) do |player_name, dice_value|
+  @game.next_turn until @game.active_player.name == player_name
 
   @game.active_player.move_pawn_using_dice(FixedDice.new(dice_value))
 end
@@ -53,9 +54,28 @@ Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, location|
   expect(pawn.location).to eql location
 end
 
-Dan(/^is de bord opstelling als volgt:$/) do |_table|
+Dan(/^is de bord opstelling als volgt:$/) do |table|
   # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
+  #  | pion  | vakje |
+
+  table.map_headers!(
+    'pion'  => :color,
+    'vakje' => :location
+  )
+  table.map_column!('vakje') { |location| location.to_i }
+  table.map_column!('pion') do |dutch_color|
+    map_dutch_color_to_symbol(dutch_color)
+  end
+
+  expected_pawn_setup = Hash[
+    table.hashes.map { |e| [e[:color], e[:location]] }
+  ]
+
+  actual_pawn_setup = Hash[
+    @game.pawns.map { |a| [a.color, a.location] }
+  ]
+
+  expect(actual_pawn_setup).to eql expected_pawn_setup
 end
 
 Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |_arg1|
