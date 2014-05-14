@@ -43,7 +43,7 @@ end
 Als(/^(\w+) (\d+) dobbelt$/) do |person_name, dice_value|
   expect(@game.active_player.name).to eql person_name
 
-  @game.active_player.roll_dice(FixedDice.new(dice_value))
+  @game.active_player.move_pawn_using_dice(FixedDice.new(dice_value))
 end
 
 Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, location|

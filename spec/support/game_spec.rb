@@ -18,7 +18,7 @@ describe Game do
     end
 
     describe 'the joined person' do
-      subject do
+      let(:player) do
         join
         game.players.first
       end
