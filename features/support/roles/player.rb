@@ -8,12 +8,12 @@ module Player
     pawn.location += die.value
   end
 
+  def finish_turn
+    game.next_turn
+  end
+
   def play_turn(die)
     move_pawn_using_die(die)
     finish_turn
-  end
-
-  def finish_turn
-    game.next_turn
   end
 end
