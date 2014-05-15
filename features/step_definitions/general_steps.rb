@@ -90,5 +90,5 @@ Dan(/^heeft (\w+) het spel gewonnen$/) do |player_name|
 end
 
 Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |space|
-  pending('figure out how to set space ruling')
+  @game.board.set_rules_for_space(Rules::GooseSpace, space)
 end
