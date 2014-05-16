@@ -1,5 +1,4 @@
 # language: nl
-@todo
 Functionaliteit: Nogmaals dobbelen
 
   Achtergrond:
@@ -17,6 +16,7 @@ Functionaliteit: Nogmaals dobbelen
     Dan is Piet weer aan de beurt om te dobbelen
 
 
+  @wip
   Scenario: Conditioneel nogmaals dobbelen met te hoge worp
     Stel op het 6de vakje mag je nogmaals dobbelen
     Maar alleen als je minder dan 4 had gegooid
@@ -24,6 +24,7 @@ Functionaliteit: Nogmaals dobbelen
     Dan is Klaas aan de beurt om te dobbelen
 
 
+  @todo
   Scenario: Conditioneel nogmaals dobbelen met juiste worp
     Stel op het 6de vakje mag je nogmaals dobbelen
     Maar alleen als je minder dan 4 had gegooid

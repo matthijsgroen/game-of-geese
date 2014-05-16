@@ -12,12 +12,15 @@ module Player
 
   private
 
+  attr_reader :active_rule
+
   def move_pawn_using_die(die)
     die.roll
     pawn.location += die.value
   end
 
   def finish_turn
+    return if active_rule && !active_rule.finish_turn?
     game.next_turn
   end
 

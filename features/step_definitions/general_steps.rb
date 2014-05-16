@@ -39,7 +39,7 @@ Als(/^de beurt van (\w+) is geweest$/) do |player_name|
   @game.active_player.play_turn(@game.die)
 end
 
-Dan(/^is (\w+) aan de beurt om te dobbelen/) do |person_name|
+Dan(/^is (\w+) (?:weer |)aan de beurt om te dobbelen/) do |person_name|
   expect(@game.active_player.name).to eql person_name
 end
 
@@ -96,4 +96,8 @@ end
 
 Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |space|
   @game.set_rules_for_space(Rules::GooseSpace, space)
+end
+
+Stel(/^op het (\d+)de vakje mag je nogmaals dobbelen$/) do |space|
+  @game.set_rules_for_space(Rules::RollAgain, space)
 end
