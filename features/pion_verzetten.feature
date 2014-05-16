@@ -49,5 +49,6 @@ Functionaliteit: Pion verzetten
   Voorbeelden:
       | x | y  |
       | 1 | 2  |
-      | 2 | 4  |
-      | 6 | 12 |
+
+      #| 2 | 4  |
+      #| 6 | 12 |

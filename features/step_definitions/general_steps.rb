@@ -5,6 +5,7 @@ end
 Stel(/^ik heb een speelbord met (\d+) vakjes$/) do |space_count|
   @game = Game.new
   @game.board = Board.new(space_count)
+  @game.die = Die.new
 end
 
 Stel(/^ik heb de volgende spelers met de klok mee:$/) do |table|
@@ -32,8 +33,10 @@ Stel(/^alle pionnen staan op het startvakje$/) do
 end
 
 Als(/^de beurt van (\w+) is geweest$/) do |player_name|
-  @game.next_turn until @game.active_player.name == player_name
-  @game.next_turn
+  until @game.active_player.name == player_name
+    @game.active_player.play_turn(@game.die)
+  end
+  @game.active_player.play_turn(@game.die)
 end
 
 Dan(/^is (\w+) aan de beurt om te dobbelen/) do |person_name|
@@ -41,9 +44,11 @@ Dan(/^is (\w+) aan de beurt om te dobbelen/) do |person_name|
 end
 
 Als(/^(\w+) (\d+) dobbelt$/) do |player_name, die_value|
-  @game.next_turn until @game.active_player.name == player_name
+  until @game.active_player.name == player_name
+    @game.active_player.play_turn(game.die)
+  end
 
-  @game.active_player.move_pawn_using_die(FixedDie.new(die_value))
+  @game.active_player.play_turn(FixedDie.new(die_value))
 end
 
 Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, location|

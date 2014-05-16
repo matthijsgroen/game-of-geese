@@ -100,13 +100,13 @@ describe Game do
 
     it 'lets each player play a turn offering a die' do
       expect(young_person).to receive(:play_turn).with(die).ordered do
-        young_person.finish_turn
+        game.next_turn
       end
       expect(older_person).to receive(:play_turn).with(die).ordered do
-        older_person.finish_turn
+        game.next_turn
       end
       expect(middle_person).to receive(:play_turn).with(die).ordered do
-        middle_person.finish_turn
+        game.next_turn
       end
 
       subject
