@@ -4,7 +4,7 @@ module Player
   attr_accessor :game
 
   def play_turn(die)
-    respecting_rules do
+    respecting_rules(die) do
       move_pawn_using_die(die)
     end
     finish_turn
@@ -21,7 +21,12 @@ module Player
     game.next_turn
   end
 
-  def respecting_rules
+  def respecting_rules(die)
     yield
+    rules = game.get_rules_for_space(pawn.location)
+    if rules
+      @active_rule = rules.new(self)
+      @active_rule.enter_space(pawn, die)
+    end
   end
 end

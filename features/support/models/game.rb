@@ -6,6 +6,7 @@ class Game
 
   def initialize
     @players = []
+    @rules = {}
     @players.extend PlayerCircle
   end
 
@@ -44,5 +45,13 @@ class Game
 
       round_finished = (active_player == current_player) || winner
     end
+  end
+
+  def set_rules_for_space(rules, space)
+    @rules[space] = rules
+  end
+
+  def get_rules_for_space(space)
+    @rules[space]
   end
 end

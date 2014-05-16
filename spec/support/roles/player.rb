@@ -21,10 +21,6 @@ shared_examples_for 'a player' do
       expect(player.pawn.location).to eql 10
     end
 
-    it 'respects the rules of the new location of the pawn' do
-      pending
-    end
-
     it 'ends the turn' do
       expect(game).to receive(:next_turn)
       subject

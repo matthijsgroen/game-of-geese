@@ -141,4 +141,14 @@ describe Game do
       end
     end
   end
+
+  describe 'adding game rules to spaces' do
+
+    it 'allows for setting and getting rules' do
+      rule = double('rule')
+      game.set_rules_for_space(rule, 5)
+      expect(game.get_rules_for_space(5)).to eql rule
+    end
+
+  end
 end

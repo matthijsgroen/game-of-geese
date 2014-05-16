@@ -40,7 +40,6 @@ Functionaliteit: Pion verzetten
     Dan heeft Piet het spel gewonnen
 
 
-  @wip
   Abstract Scenario: Ganzen vakjes
     Stel het <x>de vakje is een ganzenvakje
     Als Piet <x> dobbelt
@@ -49,6 +48,5 @@ Functionaliteit: Pion verzetten
   Voorbeelden:
       | x | y  |
       | 1 | 2  |
-
-      #| 2 | 4  |
-      #| 6 | 12 |
+      | 2 | 4  |
+      | 6 | 12 |
