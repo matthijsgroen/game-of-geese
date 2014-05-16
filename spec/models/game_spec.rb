@@ -1,6 +1,6 @@
 require 'spec_helper'
-require 'support/roles/player'
-require 'support/roles/board_pawn'
+require_relative './roles/player'
+require_relative './roles/board_pawn'
 
 describe Game do
   let(:game) { Game.new }

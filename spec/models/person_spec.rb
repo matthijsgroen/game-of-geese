@@ -1,4 +1,4 @@
-require_relative '../../features/support/models/person'
+require 'spec_helper'
 
 describe Person do
   describe 'attributes' do
