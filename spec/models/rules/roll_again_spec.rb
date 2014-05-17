@@ -19,7 +19,7 @@ describe Rules::RollAgain do
   end
 
   it 'lets the player roll again' do
-    game.set_rules_for_space described_class, 5
+    game.set_rules_for_space described_class.new, 5
     expect do
       game.active_player.play_turn(die)
     end.not_to change { game.active_player }

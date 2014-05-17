@@ -3,8 +3,10 @@ module Rules
   # basic functionality
   # every rule can reuse
   class Base
-    def initialize(player)
-      @player = player
+    def apply_to(player)
+      applied_rule = dup
+      applied_rule.player = player
+      applied_rule
     end
 
     def enter_space(_pawn, _die)
@@ -14,8 +16,6 @@ module Rules
       true
     end
 
-    protected
-
-    attr_reader :player
+    attr_accessor :player
   end
 end

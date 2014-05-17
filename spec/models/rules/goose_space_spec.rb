@@ -17,7 +17,7 @@ describe Rules::GooseSpace do
   end
 
   it 'doubles the amount of distance covered' do
-    game.set_rules_for_space described_class, 5
+    game.set_rules_for_space described_class.new, 5
     game.play_round
     expect(pawn.location).to eql 10
   end

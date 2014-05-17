@@ -28,7 +28,7 @@ module Player
     yield
     rules = game.get_rules_for_space(pawn.location)
     if rules
-      @active_rule = rules.new(self)
+      @active_rule = rules.apply_to(self)
       @active_rule.enter_space(pawn, die)
     end
   end
