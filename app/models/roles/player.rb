@@ -4,32 +4,35 @@ module Player
   attr_accessor :game
 
   def play_turn(die)
-    respecting_rules(die) do
-      move_pawn_using_die(die)
+    @die = die
+
+    respecting_rules do
+      move_pawn_using_die
     end
-    finish_turn(die)
+    finish_turn
   end
 
   private
 
-  attr_reader :active_rule
+  attr_reader :active_rule, :die
 
-  def move_pawn_using_die(die)
+  def move_pawn_using_die
     die.roll
     pawn.location += die.value
   end
 
-  def finish_turn(die)
-    return if active_rule && !active_rule.finish_turn?(die)
+  def finish_turn
+    return if active_rule && !active_rule.finish_turn?
+    @die = nil
     game.next_turn
   end
 
-  def respecting_rules(die)
+  def respecting_rules
     yield
     rules = game.get_rules_for_space(pawn.location)
     if rules
       @active_rule = rules.apply_to(self)
-      @active_rule.enter_space(pawn, die)
+      @active_rule.enter_space(pawn)
     end
   end
 end

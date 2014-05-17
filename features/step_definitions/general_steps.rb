@@ -116,3 +116,9 @@ Stel(/^alleen als je minder dan (\d+) had gegooid$/) do |die_value|
   rules = game.get_rules_for_space(current_space)
   rules.max_die_value = die_value - 1
 end
+
+En(/^de (\w+) pion staat op het (\d+)de vakje$/) do |dutch_pawn_color, space|
+  pawn_color = map_dutch_color_to_symbol(dutch_pawn_color)
+  pawn = game.pawns.find { |p| p.color == pawn_color }
+  pawn.location = space
+end

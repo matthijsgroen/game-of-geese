@@ -9,13 +9,19 @@ module Rules
       applied_rule
     end
 
-    def enter_space(_pawn, _die)
+    def enter_space(_pawn)
     end
 
-    def finish_turn?(_die)
+    def finish_turn?
       true
     end
 
     attr_accessor :player
+
+    protected
+
+    def in_scope_of_player(&block)
+      player.instance_eval(&block)
+    end
   end
 end
