@@ -112,9 +112,7 @@ Stel(/^op (het \d+de vakje) mag je nogmaals dobbelen$/) do |space|
   game.set_rules_for_space(Rules::RollAgain.new, space)
 end
 
-Stel(/^alleen als je minder dan (\d+) had gegooid$/) do |_die_value|
+Stel(/^alleen als je minder dan (\d+) had gegooid$/) do |die_value|
   rules = game.get_rules_for_space(current_space)
-
-  puts rules
-  pending # express the regexp above with the code you wish you had
+  rules.max_die_value = die_value - 1
 end

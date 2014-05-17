@@ -24,4 +24,13 @@ describe Rules::RollAgain do
       game.active_player.play_turn(die)
     end.not_to change { game.active_player }
   end
+
+  it 'respects a max set die value' do
+    rule = described_class.new
+    rule.max_die_value = 3
+    game.set_rules_for_space rule, 5
+    expect do
+      game.active_player.play_turn(die)
+    end.to change { game.active_player }
+  end
 end

@@ -7,7 +7,7 @@ module Player
     respecting_rules(die) do
       move_pawn_using_die(die)
     end
-    finish_turn
+    finish_turn(die)
   end
 
   private
@@ -19,8 +19,8 @@ module Player
     pawn.location += die.value
   end
 
-  def finish_turn
-    return if active_rule && !active_rule.finish_turn?
+  def finish_turn(die)
+    return if active_rule && !active_rule.finish_turn?(die)
     game.next_turn
   end
 

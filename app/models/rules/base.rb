@@ -12,7 +12,7 @@ module Rules
     def enter_space(_pawn, _die)
     end
 
-    def finish_turn?
+    def finish_turn?(_die)
       true
     end
 
