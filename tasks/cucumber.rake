@@ -12,10 +12,8 @@ begin
       t.profile = 'wip'
     end
 
-
     desc 'Run all features'
     task :all => [:ok, :wip]
-
   end
 
   desc 'Alias for cucumber:ok'

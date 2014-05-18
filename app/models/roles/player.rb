@@ -10,6 +10,8 @@ module Player
       move_pawn_using_die
     end
     finish_turn
+
+    @die = nil
   end
 
   private
@@ -23,7 +25,6 @@ module Player
 
   def finish_turn
     return if active_rule && !active_rule.finish_turn?
-    @die = nil
     game.next_turn
   end
 
