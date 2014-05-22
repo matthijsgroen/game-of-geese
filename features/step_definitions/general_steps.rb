@@ -117,8 +117,40 @@ Stel(/^alleen als je minder dan (\d+) had gegooid$/) do |die_value|
   rules.max_die_value = die_value - 1
 end
 
-En(/^de (\w+) pion staat op het (\d+)de vakje$/) do |dutch_pawn_color, space|
+Stel(/^de (\w+) pion staat op het (\d+)de vakje$/) do |dutch_pawn_color, space|
   pawn_color = map_dutch_color_to_symbol(dutch_pawn_color)
   pawn = game.pawns.find { |p| p.color == pawn_color }
   pawn.location = space
+end
+
+Dan(/^de pionnen staan als volgt opgesteld:$/) do |table|
+  # table is a Cucumber::Ast::Table
+  #  | pion  | vakje |
+
+  table.map_headers!(
+      'pion'  => :color,
+      'vakje' => :location
+  )
+  table.map_column!('vakje') { |location| location.to_i }
+  table.map_column!('pion') do |dutch_color|
+    map_dutch_color_to_symbol(dutch_color)
+  end
+
+  table.hashes.each do |data|
+    pawn = game.pawns.find { |p| p.color == data[:color] }
+    pawn.location = data[:location]
+  end
+end
+
+Stel(/^op (het \d+de vakje) is een "(.*?)"$/) do |_arg1, _arg2|
+end
+
+Stel(/^daar mag je verder naar vakje (\d+)$/) do |destination|
+  game.set_rules_for_space Rules::GotoSpace.new(destination), current_space
+end
+
+Stel(/^(\w+) is aan de beurt om te dobbelen$/) do |player_name|
+  while game.active_player.name != player_name
+    game.active_player.play_turn(game.die)
+  end
 end

@@ -21,6 +21,7 @@ Functionaliteit: Ga naar vakje
       | paars | 12    |
 
 
+  @wip
   Scenario: Verplaatsen naar voren
     Stel op het 6de vakje is een "brug"
     En daar mag je verder naar vakje 15
@@ -29,6 +30,7 @@ Functionaliteit: Ga naar vakje
     Dan staat de zwarte pion op het 15de vakje
 
 
+  @todo
   Scenario: Verplaatsen naar achteren
     Stel op het 14de vakje is een "vogelkooi"
     En daar moet je terug naar vakje 9
@@ -37,6 +39,7 @@ Functionaliteit: Ga naar vakje
     Dan staat de paarse pion op het 9de vakje
 
 
+  @todo
   Scenario: Dubbele verplaatsing
     Stel op het 14de vakje mag je naar vakje 9
     En op het 9de vakje mag je naar vakje 16
@@ -45,6 +48,7 @@ Functionaliteit: Ga naar vakje
     Dan staat de paarse pion op het 16de vakje
 
 
+  @todo
   Scenario: Handeling op doelvakje
     Stel op het 14de vakje mag je naar vakje 9
     En op het 9de vakje mag je nogmaals dobbelen
@@ -53,5 +57,3 @@ Functionaliteit: Ga naar vakje
     Als Klaas 2 dobbelt
     Dan staat de paarse pion op het 9de vakje
     En is Klaas weer aan de beurt om te dobbelen
-
-
