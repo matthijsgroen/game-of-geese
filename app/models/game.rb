@@ -31,7 +31,7 @@ class Game
   end
 
   def next_turn
-    @winner = active_player if active_player.pawn.location >= board.spaces
+    @winner = active_player if active_player.pawn.location >= board.space_count
     @active_player = @players.next_after active_player
   end
 

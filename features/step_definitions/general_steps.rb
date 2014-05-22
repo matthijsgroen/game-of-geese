@@ -142,7 +142,8 @@ Dan(/^de pionnen staan als volgt opgesteld:$/) do |table|
   end
 end
 
-Stel(/^op (het \d+de vakje) is een "(.*?)"$/) do |_arg1, _arg2|
+Stel(/^op (het \d+de vakje) is een "(.*?)"$/) do |space, label|
+  game.board.set_label_for_space(label, space)
 end
 
 Stel(/^daar mag je verder naar vakje (\d+)$/) do |destination|

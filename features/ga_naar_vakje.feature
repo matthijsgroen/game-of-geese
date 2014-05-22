@@ -21,7 +21,6 @@ Functionaliteit: Ga naar vakje
       | paars | 12    |
 
 
-  @wip
   Scenario: Verplaatsen naar voren
     Stel op het 6de vakje is een "brug"
     En daar mag je verder naar vakje 15
@@ -30,7 +29,7 @@ Functionaliteit: Ga naar vakje
     Dan staat de zwarte pion op het 15de vakje
 
 
-  @todo
+  @wip
   Scenario: Verplaatsen naar achteren
     Stel op het 14de vakje is een "vogelkooi"
     En daar moet je terug naar vakje 9

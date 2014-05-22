@@ -6,7 +6,7 @@ describe Game do
   let(:game) { Game.new }
 
   before do
-    game.board = double('board', spaces: 50)
+    game.board = double('board', space_count: 50)
   end
 
   describe '#join' do
@@ -128,10 +128,10 @@ describe Game do
         game.board = Board.new(40)
         game.die = double('die', roll: nil, value: 5)
         game.join(young_person, pawn1)
-        pawn1.location = game.board.spaces - 1
+        pawn1.location = game.board.space_count - 1
 
         game.join(older_person, pawn2)
-        pawn2.location = game.board.spaces - 1
+        pawn2.location = game.board.space_count - 1
       end
 
       it 'is done when a player reaches the end of the board' do
