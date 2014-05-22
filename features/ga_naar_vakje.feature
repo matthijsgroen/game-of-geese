@@ -29,7 +29,6 @@ Functionaliteit: Ga naar vakje
     Dan staat de zwarte pion op het 15de vakje
 
 
-  @wip
   Scenario: Verplaatsen naar achteren
     Stel op het 14de vakje is een "vogelkooi"
     En daar moet je terug naar vakje 9
@@ -38,7 +37,7 @@ Functionaliteit: Ga naar vakje
     Dan staat de paarse pion op het 9de vakje
 
 
-  @todo
+  @wip
   Scenario: Dubbele verplaatsing
     Stel op het 14de vakje mag je naar vakje 9
     En op het 9de vakje mag je naar vakje 16

@@ -146,7 +146,7 @@ Stel(/^op (het \d+de vakje) is een "(.*?)"$/) do |space, label|
   game.board.set_label_for_space(label, space)
 end
 
-Stel(/^daar mag je verder naar vakje (\d+)$/) do |destination|
+Stel(/^daar (?:mag je verder|moet je terug) naar vakje (\d+)$/) do |destination|
   game.set_rules_for_space Rules::GotoSpace.new(destination), current_space
 end
 
