@@ -2,8 +2,14 @@ Transform(/\d+/) do |number|
   number.to_i
 end
 
-Transform(/het (\d+)de vakje/) do |space|
+location = /(?:op |)het \d+de vakje|daar/
+
+Transform(/(?:op |)het (\d+)de vakje/) do |space|
   @current_space = space.to_i
+end
+
+Transform(/daar/) do |_arg|
+  @current_space
 end
 
 [:current_space, :game].each do |reader|
@@ -61,7 +67,7 @@ Als(/^(\w+) (\d+) dobbelt$/) do |player_name, die_value|
   game.active_player.play_turn(FixedDie.new(die_value))
 end
 
-Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, location|
+Dan(/^staat de (\w+) pion (#{location})$/) do |dutch_color, location|
   pawn_color = map_dutch_color_to_symbol(dutch_color)
 
   pawn = game.pawns.find { |p| p.color == pawn_color }
@@ -104,11 +110,11 @@ Dan(/^heeft (\w+) het spel gewonnen$/) do |player_name|
   expect(game.winner.name).to eql player_name
 end
 
-Stel(/^(het \d+de vakje) is een ganzenvakje$/) do |space|
+Stel(/^(#{location}) is een ganzenvakje$/) do |space|
   game.set_rules_for_space(Rules::GooseSpace.new, space)
 end
 
-Stel(/^op (het \d+de vakje) mag je nogmaals dobbelen$/) do |space|
+Stel(/^(#{location}) mag je nogmaals dobbelen$/) do |space|
   game.set_rules_for_space(Rules::RollAgain.new, space)
 end
 
@@ -117,7 +123,7 @@ Stel(/^alleen als je minder dan (\d+) had gegooid$/) do |die_value|
   rules.max_die_value = die_value - 1
 end
 
-Stel(/^de (\w+) pion staat op het (\d+)de vakje$/) do |dutch_pawn_color, space|
+Stel(/^de (\w+) pion staat (#{location})$/) do |dutch_pawn_color, space|
   pawn_color = map_dutch_color_to_symbol(dutch_pawn_color)
   pawn = game.pawns.find { |p| p.color == pawn_color }
   pawn.location = space
@@ -142,12 +148,12 @@ Dan(/^de pionnen staan als volgt opgesteld:$/) do |table|
   end
 end
 
-Stel(/^op (het \d+de vakje) is een "(.*?)"$/) do |space, label|
+Stel(/^(#{location}) is een "(.*?)"$/) do |space, label|
   game.board.set_label_for_space(label, space)
 end
 
-Stel(/^daar (?:mag je verder|moet je terug) naar vakje (\d+)$/) do |destination|
-  game.set_rules_for_space Rules::GotoSpace.new(destination), current_space
+Stel(/^(#{location}) (?:mag|moet) je (?:verder |terug |)naar vakje (\d+)$/) do |space, destination|
+  game.set_rules_for_space Rules::GotoSpace.new(destination), space
 end
 
 Stel(/^(\w+) is aan de beurt om te dobbelen$/) do |player_name|
