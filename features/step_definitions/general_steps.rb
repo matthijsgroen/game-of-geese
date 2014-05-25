@@ -2,17 +2,17 @@ Transform(/\d+/) do |number|
   number.to_i
 end
 
-location = /(?:op |)het \d+de vakje|daar/
+space = /(?:op |)het \d+de vakje|daar/
 
-Transform(/(?:op |)het (\d+)de vakje/) do |space|
-  @current_space = space.to_i
+Transform(/(?:op |)het (\d+)de vakje/) do |location|
+  @current_location = location.to_i
 end
 
 Transform(/daar/) do |_arg|
-  @current_space
+  @current_location
 end
 
-[:current_space, :game].each do |reader|
+[:current_location, :game].each do |reader|
   define_method(reader) do
     instance_variable_get("@#{reader}")
   end
@@ -67,7 +67,7 @@ Als(/^(\w+) (\d+) dobbelt$/) do |player_name, die_value|
   game.active_player.play_turn(FixedDie.new(die_value))
 end
 
-Dan(/^staat de (\w+) pion (#{location})$/) do |dutch_color, location|
+Dan(/^staat de (\w+) pion (#{space})$/) do |dutch_color, location|
   pawn_color = map_dutch_color_to_symbol(dutch_color)
 
   pawn = game.pawns.find { |p| p.color == pawn_color }
@@ -110,23 +110,23 @@ Dan(/^heeft (\w+) het spel gewonnen$/) do |player_name|
   expect(game.winner.name).to eql player_name
 end
 
-Stel(/^(#{location}) is een ganzenvakje$/) do |space|
-  game.set_rules_for_space(Rules::GooseSpace.new, space)
+Stel(/^(#{space}) is een ganzenvakje$/) do |location|
+  game.set_rules_for_space(Rules::GooseSpace.new, location)
 end
 
-Stel(/^(#{location}) mag je nogmaals dobbelen$/) do |space|
-  game.set_rules_for_space(Rules::RollAgain.new, space)
+Stel(/^(#{space}) mag je nogmaals dobbelen$/) do |location|
+  game.set_rules_for_space(Rules::RollAgain.new, location)
 end
 
 Stel(/^alleen als je minder dan (\d+) had gegooid$/) do |die_value|
-  rules = game.get_rules_for_space(current_space)
+  rules = game.get_rules_for_space(current_location)
   rules.max_die_value = die_value - 1
 end
 
-Stel(/^de (\w+) pion staat (#{location})$/) do |dutch_pawn_color, space|
+Stel(/^de (\w+) pion staat (#{space})$/) do |dutch_pawn_color, location|
   pawn_color = map_dutch_color_to_symbol(dutch_pawn_color)
   pawn = game.pawns.find { |p| p.color == pawn_color }
-  pawn.location = space
+  pawn.location = location
 end
 
 Dan(/^de pionnen staan als volgt opgesteld:$/) do |table|
@@ -148,12 +148,13 @@ Dan(/^de pionnen staan als volgt opgesteld:$/) do |table|
   end
 end
 
-Stel(/^(#{location}) is een "(.*?)"$/) do |space, label|
-  game.board.set_label_for_space(label, space)
+Stel(/^(#{space}) is een "(.*?)"$/) do |location, label|
+  game.board.set_label_for_space(label, location)
 end
 
-Stel(/^(#{location}) (?:mag|moet) je (?:verder |terug |)naar vakje (\d+)$/) do |space, destination|
-  game.set_rules_for_space Rules::GotoSpace.new(destination), space
+Stel(/^(#{space}) (?:mag|moet) je (?:verder |terug |)naar vakje (\d+)$/) \
+  do |location, destination|
+  game.set_rules_for_space Rules::GotoSpace.new(destination), location
 end
 
 Stel(/^(\w+) is aan de beurt om te dobbelen$/) do |player_name|
