@@ -1,3 +1,5 @@
+require_relative './base'
+
 module Rules
   # Brings the player to a new location
   class GotoSpace < Base

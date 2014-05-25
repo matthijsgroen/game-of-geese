@@ -1,3 +1,5 @@
+require_relative './base'
+
 module Rules
   # When a player lands on this space,
   # he can move the amount of value of the dice again
