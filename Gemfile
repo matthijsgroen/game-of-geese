@@ -1,3 +1,10 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "cucumber"
+gem 'cucumber'
+gem 'rspec'
+gem 'rubocop'
+
+gem 'guard'
+gem 'guard-cucumber'
+gem 'guard-rubocop'
+
