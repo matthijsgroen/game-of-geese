@@ -1,5 +1,4 @@
 # language: nl
-@todo
 Functionaliteit: Nogmaals dobbelen
 
   Achtergrond:
@@ -30,4 +29,3 @@ Functionaliteit: Nogmaals dobbelen
     En de blauwe pion staat op het 4de vakje
     Als Piet 2 dobbelt
     Dan is Piet weer aan de beurt om te dobbelen
-
