@@ -1,7 +1,11 @@
-Stel(/^ik heb een speelbord met (?:\d+) vakjes$/) do
-  # No assertion yet that requires the amount
-  # of spaces
+Transform(/\d+/) do |number|
+  number.to_i
+end
+
+Stel(/^ik heb een speelbord met (\d+) vakjes$/) do |space_count|
   @game = Game.new
+  @game.board = Board.new(space_count)
+  @game.die = Die.new
 end
 
 Stel(/^ik heb de volgende spelers met de klok mee:$/) do |table|
@@ -28,10 +32,68 @@ Stel(/^alle pionnen staan op het startvakje$/) do
   # No assertion at the moment that requires implementation here
 end
 
-Als(/^de beurt van (?:\w+) is geweest$/) do
-  @game.play_turn
+Als(/^de beurt van (\w+) is geweest$/) do |player_name|
+  until @game.active_player.name == player_name
+    @game.active_player.play_turn(@game.die)
+  end
+  @game.active_player.play_turn(@game.die)
 end
 
-Dan(/^is (\w+) aan de beurt om te dobbelen/) do |name|
-  expect(@game.active_player.name).to eql name
+Dan(/^is (\w+) aan de beurt om te dobbelen/) do |person_name|
+  expect(@game.active_player.name).to eql person_name
+end
+
+Als(/^(\w+) (\d+) dobbelt$/) do |player_name, die_value|
+  until @game.active_player.name == player_name
+    @game.active_player.play_turn(game.die)
+  end
+
+  @game.active_player.play_turn(FixedDie.new(die_value))
+end
+
+Dan(/^staat de (\w+) pion op het (\d+)de vakje$/) do |dutch_color, location|
+  pawn_color = map_dutch_color_to_symbol(dutch_color)
+
+  pawn = @game.pawns.find { |p| p.color == pawn_color }
+  expect(pawn.location).to eql location
+end
+
+Dan(/^is de bord opstelling als volgt:$/) do |table|
+  # table is a Cucumber::Ast::Table
+  #  | pion  | vakje |
+
+  table.map_headers!(
+    'pion'  => :color,
+    'vakje' => :location
+  )
+  table.map_column!('vakje') { |location| location.to_i }
+  table.map_column!('pion') do |dutch_color|
+    map_dutch_color_to_symbol(dutch_color)
+  end
+
+  expected_pawn_setup = Hash[
+    table.hashes.map { |e| [e[:color], e[:location]] }
+  ]
+
+  actual_pawn_setup = Hash[
+    @game.pawns.map { |a| [a.color, a.location] }
+  ]
+
+  expect(actual_pawn_setup).to eql expected_pawn_setup
+end
+
+Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |die_value|
+  @game.die = FixedDie.new(die_value)
+end
+
+Als(/^er (\d+) speelrondes zijn gespeeld$/) do |round_count|
+  round_count.times { @game.play_round }
+end
+
+Dan(/^heeft (\w+) het spel gewonnen$/) do |player_name|
+  expect(@game.winner.name).to eql player_name
+end
+
+Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |space|
+  @game.set_rules_for_space(Rules::GooseSpace, space)
 end
