@@ -37,7 +37,6 @@ Functionaliteit: Ga naar vakje
     Dan staat de paarse pion op het 9de vakje
 
 
-  @wip
   Scenario: Dubbele verplaatsing
     Stel op het 14de vakje mag je naar vakje 9
     En op het 9de vakje mag je naar vakje 16
@@ -46,7 +45,6 @@ Functionaliteit: Ga naar vakje
     Dan staat de paarse pion op het 16de vakje
 
 
-  @todo
   Scenario: Handeling op doelvakje
     Stel op het 14de vakje mag je naar vakje 9
     En op het 9de vakje mag je nogmaals dobbelen

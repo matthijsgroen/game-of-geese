@@ -22,4 +22,11 @@ describe Rules::GotoSpace do
     expect(pawn.location).to eql 18
   end
 
+  it 'respects the rules of the new location' do
+    game.set_rules_for_space described_class.new(18), 5
+    game.set_rules_for_space described_class.new(10), 18
+    game.play_round
+    expect(pawn.location).to eql 10
+  end
+
 end

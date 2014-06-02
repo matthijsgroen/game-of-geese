@@ -10,7 +10,9 @@ module Rules
     def enter_space(pawn)
       local_destination = destination
       in_scope_of_player do
-        pawn.location = local_destination
+        respecting_rules do
+          pawn.location = local_destination
+        end
       end
     end
 
