@@ -53,5 +53,3 @@ Functionaliteit: Ga naar vakje
     Als Klaas 2 dobbelt
     Dan staat de paarse pion op het 9de vakje
     En is Klaas weer aan de beurt om te dobbelen
-
-

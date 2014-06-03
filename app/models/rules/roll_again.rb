@@ -1,3 +1,5 @@
+require_relative './base'
+
 module Rules
   # Allows the player to roll again
   class RollAgain < Base
