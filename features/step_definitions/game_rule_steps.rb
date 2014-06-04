@@ -20,6 +20,7 @@ Stel(/^(#{space}) (?:mag|moet) je (?:verder |terug |)naar vakje (\d+)$/) \
   game.set_rules_for_space Rules::GotoSpace.new(destination), location
 end
 
-Stel(/^(#{space}) moet je (\d+) (?:beurt|beurten) overslaan$/) do |location, _arg1|
+Stel(/^(#{space}) moet je (\d+) (?:beurt|beurten) overslaan$/) \
+  do |_location, _arg1|
   pending # express the regexp above with the code you wish you had
 end
