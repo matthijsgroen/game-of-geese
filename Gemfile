@@ -12,3 +12,5 @@ gem 'guard-cucumber'
 gem 'guard-rubocop'
 gem 'guard-rspec'
 
+gem 'gosu'
+
