@@ -12,6 +12,7 @@ Functionaliteit: Een beurt overslaan
     En alle pionnen staan op het startvakje
 
 
+  @wip
   Scenario: Beurt overslaan
     Stel op het 4de vakje is een "hotel"
     En daar moet je 1 beurt overslaan
@@ -20,6 +21,7 @@ Functionaliteit: Een beurt overslaan
     Dan is Piet aan de beurt om te dobbelen
 
 
+  @todo
   Scenario: Iedereen moet een beurt overslaan
     Stel op het 4de vakje is een "motel"
     En daar moet je 1 beurt overslaan
@@ -28,6 +30,7 @@ Functionaliteit: Een beurt overslaan
     Dan is Klaas aan de beurt om te dobbelen
 
 
+  @todo
   Scenario: Meerdere beurten overslaan
     Stel op het 4de vakje is een "holiday inn"
     En daar moet je 2 beurten overslaan
