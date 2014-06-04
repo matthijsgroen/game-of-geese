@@ -21,6 +21,6 @@ Stel(/^(#{space}) (?:mag|moet) je (?:verder |terug |)naar vakje (\d+)$/) \
 end
 
 Stel(/^(#{space}) moet je (\d+) (?:beurt|beurten) overslaan$/) \
-  do |_location, _arg1|
-  pending # express the regexp above with the code you wish you had
+  do |location, turns_to_skip|
+  game.set_rules_for_space Rules::SkipTurn.new(turns_to_skip), location
 end

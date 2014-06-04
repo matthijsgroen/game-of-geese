@@ -29,7 +29,10 @@ module Player
   end
 
   def respecting_rules
+    return if @active_rule && !@active_rule.allowed_to_roll?
+
     yield
+
     rules = game.get_rules_for_space(pawn.location)
     return unless rules
 
