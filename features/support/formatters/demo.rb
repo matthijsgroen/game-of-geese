@@ -17,11 +17,8 @@ module Cucumber
       def initialize(*)
         self.class.active = true
         init_screen
-        @cuke = Window.new(lines - 4, cucumber_width, 2, cucumber_outline)
         init_colors
-        clear
-        curs_set(0)
-
+        init_window
 
         at_exit do
           sleep 5
@@ -32,8 +29,6 @@ module Cucumber
       attr_reader :cuke
 
       def before_feature(*)
-        @line = 0
-        @background_line = 0
         clear
         cuke.clear
       end
@@ -41,32 +36,17 @@ module Cucumber
       def feature_name(keyword, name, *)
         @feature_name = "#{keyword}: #{name}"
         cuke.refresh
-        add_cuke_line
-        set_color(COLOR_WHITE)
-
-        set_bold
-        write(@feature_name)
-        clear_bold
+        cuke.add_line(@feature_name, attrs: color_pair(COLOR_WHITE) | A_BOLD)
       end
 
       def before_background(*)
-        add_cuke_line
-        write('Background:')
-      end
-
-      def after_background(*)
-        @background_line = @line
+        cuke.add_line 'Background:'
       end
 
       def scenario_name(keyword, name, *)
-        add_cuke_line
-        add_cuke_line
-        set_color(COLOR_BLUE)
-        clear_bold
-        write(keyword + ': ')
-
-        set_bold
-        write(name)
+        cuke.add_line
+        cuke.add_line(keyword + ': ', attrs: color_pair(COLOR_BLUE))
+        cuke.write(name, attrs: color_pair(COLOR_BLUE) | A_BOLD)
 
         cuke.refresh
         sleep 3
@@ -76,50 +56,57 @@ module Cucumber
         step_name = step_match.format_args(->(param) { "*#{param}*" })
         message = "#{step_name}"
 
-        add_cuke_line
-        set_color(COLOR_GREEN)
-        set_bold
-        write(keyword)
-        clear_bold
-        write(message)
+        cuke.add_line(keyword, attrs: color_pair(COLOR_GREEN) | A_BOLD)
+        cuke.write(message, attrs: color_pair(COLOR_GREEN))
         cuke.refresh
 
         sleep 0.5
       end
 
       def before_outline_table(outline_table)
-        @table = outline_table
+        self.table = outline_table
       end
 
       def before_multiline_arg(multiline_arg)
-        @table = multiline_arg
+        self.table = multiline_arg
       end
 
-      def before_table_row(table_row)
+      def before_table_row(_table_row)
         @col_index = 0
-        add_cuke_line
-        write('  | ')
+        cuke.add_line
+        cuke.write('  | ')
       end
 
-      def after_table_cell(cell)
-        return unless @table
+      def after_table_cell(_cell)
+        return unless table
         @col_index += 1
       end
 
-      def table_cell_value(value, status)
-        return unless @table
-        width = @table.col_width(@col_index)
+      def table_cell_value(value, _status)
+        return unless table
+        width = table.col_width(@col_index)
 
-        write(value.to_s)
-        #setpos(@line - 1, cucumber_outline + width)
-        write((' ' * (width - value.length)) + ' | ')
+        cuke.write(value.to_s)
+        # setpos(@line - 1, cucumber_outline + width)
+        cuke.write((' ' * (width - value.length)) + ' | ')
       end
 
-      def after_outline_table(outline_table)
-        @table = nil
+      def after_outline_table(_outline_table)
+        self.table = nil
       end
 
       private
+
+      attr_accessor :table
+
+      def init_window
+        @cuke = CucumberWindow.new(
+          lines - 4, cucumber_width,
+          2, cucumber_outline
+        )
+        clear
+        curs_set(0)
+      end
 
       def init_colors
         start_color
@@ -129,36 +116,49 @@ module Cucumber
         crmode
       end
 
-      def set_bold
-        cuke.attron(A_BOLD)
-      end
-
-      def clear_bold
-        cuke.attroff(A_BOLD)
-      end
-
-      def set_color(color)
-        cuke.attron(color_pair(color))
-      end
-
-      def add_cuke_line
-        cuke.setpos(@line, 0)
-        write(' ' * cucumber_width)
-
-        cuke.setpos(@line, 0)
-        @line += 1
-      end
-
-      def write(string)
-        @cuke.addstr(string)
-      end
-
       def cucumber_width
         cols / 3
       end
 
       def cucumber_outline
         cols - cucumber_width
+      end
+    end
+
+    # The Window displaying cuke information
+    class CucumberWindow < Curses::Window
+      def initialize(height, width, top, left)
+        super(height, width, top, left)
+        @line = 0
+      end
+
+      def clear
+        super
+        @line = 0
+      end
+
+      def add_line(text = nil, options = {})
+        setpos(@line, 0)
+        write(' ' * maxx)
+
+        setpos(@line, 0)
+        @line += 1
+
+        write(text, options) if text
+      end
+
+      def write(string, options = {})
+        with_text_options options do
+          addstr(string)
+        end
+      end
+
+      private
+
+      def with_text_options(options = {})
+        attron(options[:attrs]) if options.key? :attrs
+        yield
+        attroff(options[:attrs]) if options.key? :attrs
       end
     end
   end
