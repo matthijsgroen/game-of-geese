@@ -13,4 +13,5 @@ gem 'guard-rubocop'
 gem 'guard-rspec'
 
 gem 'gosu'
+gem 'celluloid'
 

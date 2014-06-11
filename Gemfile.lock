@@ -78,6 +78,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  celluloid
   cucumber
   gosu
   guard
