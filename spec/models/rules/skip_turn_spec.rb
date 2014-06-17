@@ -8,33 +8,32 @@ describe Rules::SkipTurn do
 
   let(:pawn) { Pawn.new color: :blue }
   let(:person) { Person.new age: 8 }
-  let(:other_person) { Person.new age: 9 }
+  let(:second_person) { Person.new age: 9 }
+  let(:third_person) { Person.new age: 10 }
 
   before do
     game.board = board
     game.die = die
 
     game.join person, pawn
-    game.join other_person, Pawn.new(color: :red)
+    game.join second_person, Pawn.new(color: :red)
+    game.join third_person, Pawn.new(color: :white)
   end
 
-  it 'lets skip a number of turns' do
+  it 'lets a player skip a number of turns' do
     game.set_rules_for_space described_class.new(1), 5
 
     # Arrive on space with skip turn
     game.active_player.play_turn(die)
-    expect(game.active_player).to eql(other_person)
+
+    expect(game.active_player).to eql(second_person)
+    game.active_player.play_turn(FixedDie.new 8)
+    expect(game.active_player).to eql(third_person)
 
     # Other player moves
-    game.active_player.play_turn(FixedDie.new 8)
-
-    # Player is not allowed to roll and move
-    expect(game.die).not_to receive(:roll)
     expect do
-      game.active_player.play_turn(die)
-    end.not_to change { pawn.location }
-
-    expect(game.active_player).to eql(other_person)
+      game.active_player.play_turn(FixedDie.new 8)
+    end.to change { game.active_player }.to(second_person)
   end
 
 end

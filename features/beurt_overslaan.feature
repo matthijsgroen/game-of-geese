@@ -7,12 +7,11 @@ Functionaliteit: Een beurt overslaan
     Stel ik heb een speelbord met 63 vakjes
     En ik heb de volgende spelers met de klok mee:
       | naam  | leeftijd | kleur pion |
-      | Klaas | 14       | paars      |
-      | Piet  | 9        | blauw      |
+      | Piet  | 14       | blauw      |
+      | Klaas | 9        | paars      |
     En alle pionnen staan op het startvakje
 
 
-  @wip
   Scenario: Beurt overslaan
     Stel op het 4de vakje is een "hotel"
     En daar moet je 1 beurt overslaan
@@ -21,7 +20,6 @@ Functionaliteit: Een beurt overslaan
     Dan is Piet aan de beurt om te dobbelen
 
 
-  @todo
   Scenario: Iedereen moet een beurt overslaan
     Stel op het 4de vakje is een "motel"
     En daar moet je 1 beurt overslaan
@@ -30,7 +28,6 @@ Functionaliteit: Een beurt overslaan
     Dan is Klaas aan de beurt om te dobbelen
 
 
-  @todo
   Scenario: Meerdere beurten overslaan
     Stel op het 4de vakje is een "holiday inn"
     En daar moet je 2 beurten overslaan

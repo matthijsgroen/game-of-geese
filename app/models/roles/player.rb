@@ -14,6 +14,11 @@ module Player
     @die = nil
   end
 
+  def allowed_to_play?
+    return true unless active_rule
+    active_rule.allowed_to_roll?
+  end
+
   private
 
   attr_reader :active_rule, :die
@@ -29,8 +34,6 @@ module Player
   end
 
   def respecting_rules
-    return if @active_rule && !@active_rule.allowed_to_roll?
-
     yield
 
     rules = game.get_rules_for_space(pawn.location)
