@@ -26,5 +26,5 @@ Stel(/^(#{space}) moet je (\d+) (?:beurt|beurten) overslaan$/) \
 end
 
 Stel(/^(#{space}) is een bokkesprong$/) do |location|
-  pending
+  game.set_rules_for_space Rules::Curvet.new, location
 end
