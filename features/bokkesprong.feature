@@ -15,7 +15,6 @@ Functionaliteit: Bokkesprong
       | blauw | 8     |
 
 
-  @wip
   Abstract Scenario: Grote sprong
     Stel op het <bokkesprong vakje> vakje is een bokkesprong
     En <speler> is aan de beurt om te dobbelen
@@ -28,7 +27,6 @@ Functionaliteit: Bokkesprong
       | 10de              | Piet   | blauwe | 43ste      |
 
 
-  @todo
   Scenario: Voorste speler op bokkesprong
     Stel op het 46ste vakje is een bokkesprong
     En Klaas is aan de beurt om te dobbelen

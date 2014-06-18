@@ -20,7 +20,7 @@ end
 
 Stel(/^(\w+) is aan de beurt om te dobbelen$/) do |player_name|
   while game.active_player.name != player_name
-    game.active_player.play_turn(game.die)
+    game.active_player.play_turn(FixedDie.new(0))
   end
 end
 
