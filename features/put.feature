@@ -12,6 +12,7 @@ Functionaliteit: De put
     En alle pionnen staan op het startvakje
 
 
+  @todo
   Abstract Scenario: In de put vallen
     Stel op het 4de vakje is een put
     En Piet is aan de beurt om te dobbelen
@@ -28,6 +29,7 @@ Functionaliteit: De put
     | 5    |
 
 
+  @todo
   Scenario: Uit de put komen
     Stel op het 4de vakje is een put
     En Piet is aan de beurt om te dobbelen
