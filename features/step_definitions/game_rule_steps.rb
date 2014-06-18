@@ -24,3 +24,7 @@ Stel(/^(#{space}) moet je (\d+) (?:beurt|beurten) overslaan$/) \
   do |location, turns_to_skip|
   game.set_rules_for_space Rules::SkipTurn.new(turns_to_skip), location
 end
+
+Stel(/^(#{space}) is een bokkesprong$/) do |location|
+  pending
+end
