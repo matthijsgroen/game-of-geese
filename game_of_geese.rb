@@ -10,7 +10,6 @@ require_relative 'app/models/roles/player'
 require 'drb/drb'
 
 class GameWindow < Gosu::Window
-  attr_accessor :game
   attr_accessor :board
   attr_accessor :spaces
   attr_accessor :update
@@ -22,6 +21,11 @@ class GameWindow < Gosu::Window
     @pawn_image_green = Gosu::Image.new(self, 'app/images/pawn_green.png', true)
     @spaces = []
     @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
+  end
+
+  def game=(game)
+    @update = true
+    @game = game
   end
 
   def draw
