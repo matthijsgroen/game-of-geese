@@ -1,6 +1,6 @@
-@space = /(?:op |)het \d+de vakje|daar/
+@space = /(?:op |)het \d+(?:de|ste) vakje|daar/
 
-Transform(/(?:op |)het (\d+)de vakje/) do |location|
+Transform(/(?:op |)het (\d+)(?:de|ste) vakje/) do |location|
   @current_location = location.to_i
 end
 
