@@ -10,7 +10,6 @@ require_relative 'app/models/roles/player'
 require 'drb/drb'
 
 class GameWindow < Gosu::Window
-  attr_accessor :board
   attr_accessor :spaces
   attr_accessor :update
   COLOR_BLUE = Gosu::Color.new(0xFF1EB1FA)
@@ -29,7 +28,7 @@ class GameWindow < Gosu::Window
   end
 
   def draw
-    draw_board if @board
+    draw_board if @game
     @pawn_image_green.draw(0, 0, 0, 0.5, 0.5)
     @font.draw(@game.inspect, 0, 0, 1, 1, 1, 0xffffff00)
   end
@@ -50,7 +49,7 @@ class GameWindow < Gosu::Window
     row_spacing = 70
     cell_spacing = 60
     direction = :right
-    (1..@board.space_count).each do |space|
+    (1..@game.board.space_count).each do |space|
       #draw_space(space, topleft_x, topleft_y)
       @spaces << { space: space, topleft_x: topleft_x, topleft_y: topleft_y }
       if direction == :right
@@ -80,14 +79,6 @@ class GameWindow < Gosu::Window
       end
     end
     @update = false
-  end
-
-  def update
-
-  end
-
-  def create_board(space_count)
-    @board = Board.new space_count
   end
 
   def draw_space(space, topleft_x, topleft_y)

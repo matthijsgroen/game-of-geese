@@ -8,7 +8,8 @@ end
 
 Stel(/^ik heb een gosu speelbord met (\d+) vakjes$/) do |space_count|
   @game = Game.new
-  @remotegame.create_board space_count
+  @board = Board.new(space_count)
+  @game.board = @board
   @remotegame.game = @game
   expect(@remotegame.spaces.length).to eq(space_count)
 end
