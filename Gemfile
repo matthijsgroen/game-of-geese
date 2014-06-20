@@ -7,11 +7,15 @@ gem 'cucumber'
 gem 'rspec'
 gem 'rubocop'
 
-gem 'guard'
-gem 'guard-cucumber'
-gem 'guard-rubocop'
-gem 'guard-rspec'
+group :development do
+  gem 'guard'
+  gem 'guard-cucumber'
+  gem 'guard-rubocop'
+  gem 'guard-rspec'
+end
 
-gem 'gosu'
-gem 'celluloid'
+group :demo do
+  gem 'gosu'
+  gem 'celluloid'
+end
 
