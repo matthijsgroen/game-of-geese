@@ -15,19 +15,19 @@ class GameWindow < Gosu::Window
     @font = Gosu::Font.new(self, Gosu.default_font_name, 20)
   end
 
-  def game=(game)
+  def game_struct=(game)
     @update = true
     @game = game
   end
 
   def draw
-    draw_board(@game.board) if @game
+    draw_board(@game[:board]) if @game && @game.key?(:board)
     @pawn_image_green.draw(0, 0, 0, 0.5, 0.5)
-    @font.draw(@game.inspect, 0, 0, 1, 1, 1, 0xffffff00)
+    # @font.draw(@game.inspect, 0, 0, 1, 1, 1, 0xffffff00)
   end
 
   def draw_board(board)
-    @spaces = define_spaces(board.space_count) if @update
+    @spaces = define_spaces(board[:space_count]) if @update
     @update = false
 
     @spaces.each_with_index do |space, index|
