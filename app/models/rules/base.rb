@@ -16,6 +16,10 @@ module Rules
       true
     end
 
+    def allowed_to_roll?
+      true
+    end
+
     attr_accessor :player
 
     protected

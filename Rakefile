@@ -1,7 +1,7 @@
 load File.expand_path('../tasks/cucumber.rake', __FILE__)
 
 require 'rubocop/rake_task'
-Rubocop::RakeTask.new
+RuboCop::RakeTask.new
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|

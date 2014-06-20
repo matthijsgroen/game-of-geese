@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/matthijsgroen/game-of-geese.svg)](https://travis-ci.org/matthijsgroen/game-of-geese)
+[![Build Status](https://travis-ci.org/matthijsgroen/game-of-geese.svg?branch=master)](https://travis-ci.org/matthijsgroen/game-of-geese)
 
 Game of Geese
 =============
