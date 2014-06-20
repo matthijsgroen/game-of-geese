@@ -1,2 +1,3 @@
 default: 'features/ --tags ~@wip --tags ~@todo --strict --format pretty'
+demo: 'features/ --tags ~@wip --tags ~@todo --strict --format Cucumber::Formatter::Demo'
 wip: 'features/ --tags @wip --wip --format pretty'

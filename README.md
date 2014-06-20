@@ -12,3 +12,9 @@ And to learn from each others architectural decisions.
 This time it is a Dutch themed challenge.
 
 The cukes are therefor in Dutch.
+
+
+Demo mode
+---------
+
+`cucumber -p demo`
