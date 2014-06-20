@@ -9,6 +9,7 @@ require_relative 'app/models/roles/player'
 
 require 'drb/drb'
 
+# this is the main game window
 class GameWindow < Gosu::Window
   attr_accessor :spaces
   attr_accessor :update
@@ -19,7 +20,7 @@ class GameWindow < Gosu::Window
     self.caption = 'Game of geese'
     @pawn_image_green = Gosu::Image.new(self, 'app/images/pawn_green.png', true)
     @spaces = []
-    @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
+    @font = Gosu::Font.new(self, Gosu.default_font_name, 20)
   end
 
   def game=(game)
@@ -38,8 +39,15 @@ class GameWindow < Gosu::Window
       @spaces = []
       update_board
     end
-    @spaces.each { |space| draw_space(space[:space], space[:topleft_x], space[:topleft_y]) }
+
+    @spaces.each do |space|
+      draw_space(space[:space],
+                 space[:topleft_x],
+                 space[:topleft_y])
+    end
   end
+
+  private
 
   def update_board
     topleft_x, topleft_y = 0, 0
@@ -50,31 +58,31 @@ class GameWindow < Gosu::Window
     cell_spacing = 60
     direction = :right
     (1..@game.board.space_count).each do |space|
-      #draw_space(space, topleft_x, topleft_y)
       @spaces << { space: space, topleft_x: topleft_x, topleft_y: topleft_y }
-      if direction == :right
-        topleft_x = topleft_x + cell_spacing
+      case direction
+      when :right
+        topleft_x += cell_spacing
         if topleft_x >= max_x
           direction = :down
-          max_x = max_x - row_spacing
+          max_x -= row_spacing
         end
-      elsif direction == :down
-        topleft_y = topleft_y + cell_spacing
+      when :down
+        topleft_y += cell_spacing
         if topleft_y >= max_y
           direction = :left
-          max_y = max_y - row_spacing
+          max_y -= row_spacing
         end
-      elsif direction == :left
-        topleft_x = topleft_x - cell_spacing
+      when :left
+        topleft_x -= cell_spacing
         if topleft_x <= min_x
           direction = :up
-          min_y = min_y + row_spacing
+          min_y += row_spacing
         end
-      elsif direction == :up
-        topleft_y = topleft_y - cell_spacing
+      when :up
+        topleft_y -= cell_spacing
         if topleft_y <= min_y
           direction = :right
-          min_x = min_x + row_spacing
+          min_x += row_spacing
         end
       end
     end
@@ -89,9 +97,9 @@ class GameWindow < Gosu::Window
   def draw_square(topleft_x = 0, topleft_y = 0, size = 50)
     draw_quad(
         topleft_x, topleft_y, COLOR_BLUE,
-        topleft_x+size, topleft_y, COLOR_BLUE,
-        topleft_x, topleft_y+size, COLOR_BLUE,
-        topleft_x+size, topleft_y+size, COLOR_BLUE,
+        topleft_x + size, topleft_y, COLOR_BLUE,
+        topleft_x, topleft_y + size, COLOR_BLUE,
+        topleft_x + size, topleft_y + size, COLOR_BLUE,
         0)
   end
 
