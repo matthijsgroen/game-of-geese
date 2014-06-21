@@ -52,6 +52,6 @@ class Game
   end
 
   def get_rules_for_space(space)
-    @rules[space]
+    @rules[space] || Rules::Base.new
   end
 end

@@ -25,7 +25,11 @@ module Player
 
   def move_pawn_using_die
     die.roll
-    pawn.location += die.value
+    if active_rule
+      active_rule.leave_space(pawn, die.value)
+    else
+      pawn.location += die.value
+    end
   end
 
   def finish_turn

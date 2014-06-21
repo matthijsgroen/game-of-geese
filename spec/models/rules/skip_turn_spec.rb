@@ -27,12 +27,12 @@ describe Rules::SkipTurn do
     game.active_player.play_turn(die)
 
     expect(game.active_player).to eql(second_person)
-    game.active_player.play_turn(FixedDie.new 8)
+    game.active_player.play_turn(FixedDie.new 4)
     expect(game.active_player).to eql(third_person)
 
     # Other player moves
     expect do
-      game.active_player.play_turn(FixedDie.new 8)
+      game.active_player.play_turn(FixedDie.new 4)
     end.to change { game.active_player }.to(second_person)
   end
 
