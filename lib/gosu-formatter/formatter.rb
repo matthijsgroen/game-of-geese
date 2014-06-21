@@ -15,6 +15,7 @@ module Cucumber
           with_remote_game do |remote|
             remote.game_struct = game_struct
           end
+          sleep 0.5
         end
 
         private
@@ -34,7 +35,29 @@ module Cucumber
           {
             board: {
               space_count: game.board.space_count
+            },
+            die_value: game.die.value,
+            players: create_players_struct(game.players,
+                                           game.active_player, game.winner)
+          }
+        end
+
+        def create_players_struct(players, active_player, winner)
+          players.map do |p|
+            {
+              name: p.name,
+              age: p.age,
+              active: p == active_player,
+              winner: p == winner,
+              pawn: create_pawn_struct(p.pawn)
             }
+          end
+        end
+
+        def create_pawn_struct(pawn)
+          {
+            color: pawn.color,
+            location: pawn.location
           }
         end
       end
