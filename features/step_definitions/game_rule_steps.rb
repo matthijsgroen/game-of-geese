@@ -32,3 +32,21 @@ end
 Stel(/^(#{space}) is een put$/) do |location|
   game.set_rules_for_space Rules::Well.new, location
 end
+
+Stel(/^de volgende vakjes zijn ganzenvakjes:$/) do |table|
+  # table is a Cucumber::Ast::Table
+  # Table structure:
+  # | vakje |
+
+  table.map_headers!(
+    'vakje' => :location
+  )
+  table.map_column!('vakje') { |location| location.to_i }
+
+  table.hashes.each do |location_attributes|
+    game.set_rules_for_space(
+      Rules::GooseSpace.new,
+      location_attributes[:location]
+    )
+  end
+end
