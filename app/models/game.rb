@@ -11,12 +11,11 @@ class Game
   end
 
   def join(person, pawn)
-    pawn.extend BoardPawn
-    pawn.location = 0
-
     player = person.extend Player
     player.pawn = pawn
     player.game = self
+    player.place_pawn_on_board
+
     @players.push player
   end
 

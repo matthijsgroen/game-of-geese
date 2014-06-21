@@ -3,6 +3,13 @@ module Player
   attr_accessor :pawn
   attr_accessor :game
 
+  def place_pawn_on_board
+    pawn.extend BoardPawn
+    respecting_rules do
+      pawn.location = 0
+    end
+  end
+
   def play_turn(die)
     @die = die
 
@@ -15,7 +22,6 @@ module Player
   end
 
   def allowed_to_play?
-    return true unless active_rule
     active_rule.allowed_to_roll?
   end
 
@@ -25,15 +31,11 @@ module Player
 
   def move_pawn_using_die
     die.roll
-    if active_rule
-      active_rule.leave_space(pawn, die.value)
-    else
-      pawn.location += die.value
-    end
+    active_rule.leave_space(pawn, die.value)
   end
 
   def finish_turn
-    return if active_rule && !active_rule.finish_turn?
+    return unless active_rule.finish_turn?
     game.next_turn
   end
 
@@ -41,8 +43,6 @@ module Player
     yield
 
     rules = game.get_rules_for_space(pawn.location)
-    return unless rules
-
     @active_rule = rules.apply_to(self)
     @active_rule.enter_space(pawn)
   end
