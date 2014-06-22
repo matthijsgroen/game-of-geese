@@ -72,7 +72,7 @@ class PawnRenderer
 
   def initialize_pawn_images(window)
     @pawn_images = {}
-    [:green, :blue, :red, :purple, :white, :yellow].each do |color|
+    [:black, :blue, :green, :purple, :red, :white, :yellow].each do |color|
       path = "app/images/pawn_#{color}.png"
       @pawn_images[color] = Gosu::Image.new(window, path, true)
     end

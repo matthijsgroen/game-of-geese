@@ -51,7 +51,7 @@ class GameWindow < Gosu::Window
       label += ' WINNAAR!' if p[:winner]
 
       @font.draw(label, x + 30, y + (30 * i), 1, 1, 1,
-                 p[:active] ? 0xff000000 : 0xff00ff00)
+                 p[:active] ? 0xff000000 : 0x9f000000)
     end
   end
 
