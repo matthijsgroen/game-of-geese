@@ -1,5 +1,7 @@
 require 'cucumber/formatter/pretty'
 require 'drb/drb'
+require_relative './listeners/die_listener'
+require_relative './listeners/pawn_listener'
 
 module Cucumber
   module Formatter
@@ -23,24 +25,6 @@ module Cucumber
         private
 
         attr_reader :game
-
-        # tell gosu when die is rolled
-        module DieListener
-          attr_accessor :formatter_listener
-
-          def roll
-            super.tap { formatter_listener.update }
-          end
-        end
-
-        # tell gosu when pawn is moved
-        module PawnListener
-          attr_accessor :formatter_listener
-
-          def location=(_value)
-            super.tap { formatter_listener.update }
-          end
-        end
 
         def add_game_hooks(game)
           return unless game

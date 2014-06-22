@@ -15,17 +15,25 @@ class SpaceGenerator
 
   def generate_spaces(count)
     count.times do
-      @spaces << { topleft_x: @topleft[:x], topleft_y: @topleft[:y] }
-      case @direction
-      when :right then draw_tile_right
-      when :down  then draw_tile_down
-      when :left  then draw_tile_left
-      when :up    then draw_tile_up
-      end
+      @spaces << {
+        topleft_x: @topleft[:x],
+        topleft_y: @topleft[:y],
+        direction: @direction
+      }
+      draw_next_tile
     end
   end
 
   private
+
+  def draw_next_tile
+    case @direction
+    when :right then draw_tile_right
+    when :down  then draw_tile_down
+    when :left  then draw_tile_left
+    when :up    then draw_tile_up
+    end
+  end
 
   def set_boundaries(max_x, max_y)
     @boundaries = {

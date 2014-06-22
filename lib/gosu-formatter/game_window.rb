@@ -6,6 +6,7 @@ class GameWindow < Gosu::Window
   attr_accessor :spaces
   attr_accessor :update
   COLOR_BLUE = Gosu::Color.new(0xFF1EB1FA)
+  COLOR_GREEN = Gosu::Color.new(0xFF1EFAB1)
 
   def initialize
     super(800, 600, false)
@@ -56,7 +57,7 @@ class GameWindow < Gosu::Window
       pawns.each_with_index do |color, index|
         image = @pawn_images[color]
         image.draw(space[:topleft_x] + (30 * index),
-                   space[:topleft_y], 0, 0.5, 0.5)
+                   space[:topleft_y], 2, 0.5, 0.5)
       end
     end
   end
@@ -79,31 +80,38 @@ class GameWindow < Gosu::Window
     @spaces.each_with_index do |space, index|
       label = index
       label = 'Start' if index == 0
-      draw_space(label,
-                 space[:topleft_x],
-                 space[:topleft_y])
+
+      draw_space(
+        label,
+        space
+      )
     end
   end
 
   private
 
   def define_spaces(space_count)
-    generator = SpaceGenerator.new(600, 500, cell_spacing: 60, row_spacing: 70)
+    generator = SpaceGenerator.new(700, 500, cell_spacing: 60, row_spacing: 70)
     generator.generate_spaces(space_count + 1)
     generator.spaces
   end
 
-  def draw_space(space, topleft_x, topleft_y)
-    draw_square(topleft_x, topleft_y, 50)
-    @font.draw(space, topleft_x + 20, topleft_y + 15, 1, 1, 1, 0xffffff00)
+  def draw_space(label, space)
+    topleft_x = space[:topleft_x] - (space[:direction] == :left ? 9 : 0)
+    topleft_y = space[:topleft_y] - (space[:direction] == :up ? 9 : 0)
+    size_x = [:right, :left].include?(space[:direction]) ? 59 : 50
+    size_y = [:up, :down].include?(space[:direction]) ? 59 : 50
+
+    draw_square(topleft_x, topleft_y, size_x, size_y)
+    @font.draw(label, topleft_x, topleft_y, 1, 1, 1, 0x40000000)
   end
 
-  def draw_square(topleft_x = 0, topleft_y = 0, size = 50)
+  def draw_square(topleft_x, topleft_y, size_x, size_y, color: COLOR_BLUE)
     draw_quad(
-      topleft_x, topleft_y, COLOR_BLUE,
-      topleft_x + size, topleft_y, COLOR_BLUE,
-      topleft_x, topleft_y + size, COLOR_BLUE,
-      topleft_x + size, topleft_y + size, COLOR_BLUE,
+      topleft_x, topleft_y, color,
+      topleft_x + size_x, topleft_y, color,
+      topleft_x, topleft_y + size_y, color,
+      topleft_x + size_x, topleft_y + size_y, color,
       0
     )
   end
