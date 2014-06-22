@@ -1,12 +1,12 @@
 require 'gosu'
 require_relative 'space_generator'
+require_relative './pawn_renderer'
 
 # this is the main game window
 class GameWindow < Gosu::Window
   attr_accessor :spaces
   attr_accessor :update
   COLOR_BLUE = Gosu::Color.new(0xFF1EB1FA)
-  COLOR_GREEN = Gosu::Color.new(0xFF1EFAB1)
 
   def initialize
     super(800, 600, false)
@@ -15,6 +15,7 @@ class GameWindow < Gosu::Window
     initialize_pawn_images
 
     @spaces = []
+    @pawn_renderer = PawnRenderer.new
     @font = Gosu::Font.new(self, Gosu.default_font_name, 20)
   end
 
@@ -29,6 +30,12 @@ class GameWindow < Gosu::Window
   def game_struct=(game)
     @update = true
     @game = game
+
+    @pawn_renderer.update_game(game)
+  end
+
+  def update
+    @pawn_renderer.transition
   end
 
   def draw
@@ -37,7 +44,7 @@ class GameWindow < Gosu::Window
     @font.draw(@game[:die_value], 120, 120, 1, 1, 1, 0xffffff00)
 
     draw_players(@game[:players], 90, 150)
-    draw_pawns(@game)
+    @pawn_renderer.draw_pawns(self)
   end
 
   def draw_players(players, x, y)
@@ -50,16 +57,9 @@ class GameWindow < Gosu::Window
     end
   end
 
-  def draw_pawns(game)
-    locations = locate_pawns(game)
-    locations.each do |location, pawns|
-      space = @spaces[location]
-      pawns.each_with_index do |color, index|
-        image = @pawn_images[color]
-        image.draw(space[:topleft_x] + (30 * index),
-                   space[:topleft_y], 2, 0.5, 0.5)
-      end
-    end
+  def draw_pawn(color, x, y)
+    image = @pawn_images[color]
+    image.draw(x, y, 2, 0.5, 0.5)
   end
 
   def locate_pawns(game)
@@ -86,6 +86,13 @@ class GameWindow < Gosu::Window
         space
       )
     end
+  end
+
+  Space = Struct.new(:x, :y)
+
+  def space_position(index)
+    s = @spaces[[index, @spaces.size - 1].min]
+    Space.new(s[:topleft_x], s[:topleft_y])
   end
 
   private
