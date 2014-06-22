@@ -10,14 +10,14 @@ class DieRenderer
 
   def update_game(game)
     return unless game
-    @rolling = game[:roll]
+    @rolling = game[:die][:rolling]
     if @rolling
       @die[:x] = 0
       @die[:y] = 0
       @direction = rand(0..7)
       @counter = 0
     end
-    @value = game[:die_value]
+    @value = game[:die][:value]
   end
 
   def update

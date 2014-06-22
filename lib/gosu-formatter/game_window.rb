@@ -8,6 +8,7 @@ class GameWindow < Gosu::Window
   attr_accessor :spaces
   attr_accessor :update
   COLOR_BLUE = Gosu::Color.new(0xFF1EB1FA)
+  COLOR_GREEN = Gosu::Color.new(0xFF1EFA1E)
   COLOR_WHITE = Gosu::Color.new(0xFFFFFFFF)
 
   def initialize
@@ -73,10 +74,10 @@ class GameWindow < Gosu::Window
       label = index
       label = 'Start' if index == 0
 
-      draw_space(
-        label,
-        space
-      )
+      color = COLOR_BLUE
+      color = COLOR_GREEN if @game[:rules][index]
+
+      draw_space(label, space, color: color)
     end
   end
 
@@ -95,13 +96,13 @@ class GameWindow < Gosu::Window
     generator.spaces
   end
 
-  def draw_space(label, space)
+  def draw_space(label, space, color: COLOR_BLUE)
     topleft_x = space[:topleft_x] - (space[:direction] == :left ? 9 : 0)
     topleft_y = space[:topleft_y] - (space[:direction] == :up ? 9 : 0)
     size_x = [:right, :left].include?(space[:direction]) ? 59 : 50
     size_y = [:up, :down].include?(space[:direction]) ? 59 : 50
 
-    draw_square(topleft_x, topleft_y, size_x, size_y)
+    draw_square(topleft_x, topleft_y, size_x, size_y, color: color)
     @font.draw(label, topleft_x, topleft_y, 1, 1, 1, 0x40000000)
   end
 

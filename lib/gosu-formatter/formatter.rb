@@ -12,18 +12,30 @@ module Cucumber
         attr_accessor :active
         attr_accessor :instance
 
+        def initialize
+          super
+          FixedDie.extend DieListener
+          FixedDie.formatter_listener = self
+        end
+
         def update_game(game)
           @game = game
           add_game_hooks(game)
-          send_game_struct_to_view
+          struct = create_game_struct(game)
+          send_game_struct_to_view(struct)
         end
 
         def update
-          send_game_struct_to_view
+          struct = create_game_struct(game)
+          send_game_struct_to_view(struct)
+          sleep 1.0
         end
 
-        def roll
-          send_game_struct_to_view(roll: true)
+        def roll(value)
+          struct = create_game_struct(game)
+          struct[:die] = { rolling: true, value: value }
+          send_game_struct_to_view(struct)
+          sleep 1.0
         end
 
         private
@@ -46,13 +58,10 @@ module Cucumber
           obj.formatter_listener = self
         end
 
-        def send_game_struct_to_view(roll: false)
-          game_struct = create_game_struct(game)
-          game_struct[:roll] = roll
+        def send_game_struct_to_view(game_struct)
           with_remote_game do |remote|
             remote.game_struct = game_struct
           end
-          sleep 1.0
         end
 
         def with_remote_game
@@ -71,10 +80,23 @@ module Cucumber
             board: {
               space_count: game.board.space_count
             },
-            die_value: game.die.value,
+            rules: create_rules_struct(game),
+            die: { value: game.die.value, rolling: false },
             players: create_players_struct(game.players,
                                            game.active_player, game.winner)
           }
+        end
+
+        def create_rules_struct(game)
+          rules = {}
+          game.board.space_count.times do |index|
+            rule = game.get_rules_for_space(index)
+            next unless rule && rule.class != Rules::Base
+            rules[index] = {
+              rule: rule.class.name
+            }
+          end
+          rules
         end
 
         def create_players_struct(players, active_player, winner)
