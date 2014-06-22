@@ -37,19 +37,19 @@ class GameWindow < Gosu::Window
     return unless @game
     clear
     draw_board(@game[:board])
-    @die_renderer.draw_die(400, 250)
     draw_players(@game[:players], 90, 150)
+    @die_renderer.draw_die(400, 250)
     @pawn_renderer.draw_pawns(self)
   end
 
   def draw_players(players, x, y)
     players.each_with_index do |p, i|
-      @pawn_renderer.draw_pawn(
-        p[:pawn][:color],
-        x, y + (30 * i)
-      )
+      @pawn_renderer.draw_pawn(p[:pawn][:color], x, y + (30 * i))
+      label = p[:name]
+      label += ' <' if p[:active]
+      label += ' WINNAAR!' if p[:winner]
 
-      @font.draw(p[:name], x + 30, y + (30 * i), 1, 1, 1,
+      @font.draw(label, x + 30, y + (30 * i), 1, 1, 1,
                  p[:active] ? 0xff000000 : 0xff00ff00)
     end
   end
