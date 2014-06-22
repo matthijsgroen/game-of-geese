@@ -16,7 +16,7 @@ class PawnRenderer
 
   def transition
     @pawns.each do |_color, p|
-      p[:transition] += 0.1
+      p[:transition] += 0.05
       p[:transition] = 1.0 if p[:transition] > 1.0
     end
   end

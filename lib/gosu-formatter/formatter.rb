@@ -52,7 +52,7 @@ module Cucumber
           with_remote_game do |remote|
             remote.game_struct = game_struct
           end
-          sleep 0.5
+          sleep 1.0
         end
 
         def with_remote_game

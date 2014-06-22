@@ -29,7 +29,7 @@ class DieRenderer
     return unless @rolling
     @die[:value] = rand(1..6) if @counter < 40
 
-    move_die unless @counter > 80
+    move_die unless @counter > 40
   end
 
   def move_die
