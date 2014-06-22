@@ -1,7 +1,8 @@
 #:nodoc:
 class PawnRenderer
-  def initialize
+  def initialize(window)
     @pawns = {}
+    initialize_pawn_images(window)
   end
 
   def update_game(game)
@@ -20,10 +21,15 @@ class PawnRenderer
     end
   end
 
+  def draw_pawn(color, x, y)
+    image = @pawn_images[color]
+    image.draw(x, y, 2, 0.5, 0.5)
+  end
+
   def draw_pawns(window)
     @pawns.each do |color, p|
       x, y = calculate_pawn_position(p, window)
-      window.draw_pawn(color, x, y)
+      draw_pawn(color, x, y)
     end
   end
 
@@ -61,6 +67,14 @@ class PawnRenderer
         source: p[:location],
         transition: 0.0
       }
+    end
+  end
+
+  def initialize_pawn_images(window)
+    @pawn_images = {}
+    [:green, :blue, :red, :purple, :white, :yellow].each do |color|
+      path = "app/images/pawn_#{color}.png"
+      @pawn_images[color] = Gosu::Image.new(window, path, true)
     end
   end
 end

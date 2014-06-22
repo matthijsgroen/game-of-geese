@@ -3,6 +3,6 @@ module DieListener
   attr_accessor :formatter_listener
 
   def roll
-    super.tap { formatter_listener.update }
+    super.tap { formatter_listener.roll }
   end
 end

@@ -22,6 +22,10 @@ module Cucumber
           send_game_struct_to_view
         end
 
+        def roll
+          send_game_struct_to_view(roll: true)
+        end
+
         private
 
         attr_reader :game
@@ -42,8 +46,9 @@ module Cucumber
           obj.formatter_listener = self
         end
 
-        def send_game_struct_to_view
+        def send_game_struct_to_view(roll: false)
           game_struct = create_game_struct(game)
+          game_struct[:roll] = roll
           with_remote_game do |remote|
             remote.game_struct = game_struct
           end
