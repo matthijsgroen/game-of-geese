@@ -7,8 +7,8 @@ Functionaliteit: Een beurt overslaan
     Stel ik heb een speelbord met 63 vakjes
     En ik heb de volgende spelers met de klok mee:
       | naam  | leeftijd | kleur pion |
-      | Piet  | 14       | blauw      |
       | Klaas | 9        | paars      |
+      | Piet  | 14       | blauw      |
     En alle pionnen staan op het startvakje
 
 
