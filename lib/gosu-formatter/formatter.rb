@@ -12,12 +12,6 @@ module Cucumber
         attr_accessor :active
         attr_accessor :instance
 
-        def initialize
-          super
-          FixedDie.extend DieListener
-          FixedDie.formatter_listener = self
-        end
-
         def update_game(game)
           @game = game
           add_game_hooks(game)
@@ -93,7 +87,8 @@ module Cucumber
             rule = game.get_rules_for_space(index)
             next unless rule && rule.class != Rules::Base
             rules[index] = {
-              rule: rule.class.name
+              rule: rule.class.name,
+              description: game.board.label_for_space(index)
             }
           end
           rules

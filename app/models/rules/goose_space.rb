@@ -6,7 +6,9 @@ module Rules
   class GooseSpace < Base
     def enter_space(pawn)
       in_scope_of_player do
-        pawn.location += die.value
+        respecting_rules do
+          pawn.location += die.value
+        end
       end
     end
   end
