@@ -12,6 +12,10 @@ module Rules
     def enter_space(_pawn)
     end
 
+    def leave_space(pawn, die_value)
+      pawn.location += die_value
+    end
+
     def finish_turn?
       true
     end

@@ -28,3 +28,7 @@ end
 Stel(/^(#{space}) is een bokkesprong$/) do |location|
   game.set_rules_for_space Rules::Curvet.new, location
 end
+
+Stel(/^(#{space}) is een put$/) do |location|
+  game.set_rules_for_space Rules::Well.new, location
+end

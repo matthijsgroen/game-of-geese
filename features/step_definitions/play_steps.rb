@@ -35,7 +35,7 @@ Als(/^de beurt van (\w+) is geweest$/) do |player_name|
   game.active_player.play_turn(game.die)
 end
 
-Als(/^(\w+) (\d+) dobbelt$/) do |player_name, die_value|
+Als(/^(\w+) (?:een ronde later |)(\d+) dobbelt$/) do |player_name, die_value|
   until game.active_player.name == player_name
     game.active_player.play_turn(game.die)
   end
