@@ -19,7 +19,7 @@ describe Rules::Well do
   it 'moves the player when 6 is rolled' do
     game.set_rules_for_space described_class.new, 5
 
-    # Arrive on space with skip turn
+    # Arrive on space with well
     game.active_player.play_turn(die)
 
     game.active_player.play_turn(FixedDie.new 6)
@@ -29,7 +29,7 @@ describe Rules::Well do
   it 'locks the player for die values other than 6' do
     game.set_rules_for_space described_class.new, 5
 
-    # Arrive on space with skip turn
+    # Arrive on space with well
     game.active_player.play_turn(die)
 
     (1...5).each do |roll_value|
