@@ -54,3 +54,15 @@ end
 Dan(/^is (\w+) (?:weer |)aan de beurt om te dobbelen/) do |person_name|
   expect(game.active_player.name).to eql person_name
 end
+
+Als(/^het hele potje is gespeeld$/) do
+  game.play_round until game.winner
+end
+
+Dan(/^is er een winnaar bekend$/) do
+  expect(game.winner).not_to be_nil
+end
+
+Dan(/^wint deze een prijs!$/) do
+  puts "#{game.winner.name} heeft gewonnen!"
+end

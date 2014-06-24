@@ -1,7 +1,6 @@
 # language: nl
 Functionaliteit: Volledig speelbord
 
-  @todo
   Scenario: Flink potje ganzenborden
     Stel ik heb een speelbord met 63 vakjes
     En ik heb de volgende spelers met de klok mee:
